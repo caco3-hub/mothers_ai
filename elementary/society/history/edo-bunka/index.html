@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>江戸の文化クイズ｜お母さんの愛AI</title>
+<style>
+:root{--sea:#d6ecfa;--ink:#1d3557;--ok:#2a9d5c;--ng:#ef8a1f;--sun:#ffd23f;--stamp:#e63946}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","BIZ UDPGothic","Yu Gothic","Meiryo",sans-serif;color:var(--ink);background-color:var(--sea);
+background-image:linear-gradient(rgba(29,53,87,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(29,53,87,.08) 1px,transparent 1px);background-size:32px 32px;min-height:100vh;padding:16px;line-height:1.6}
+main{max-width:560px;margin:0 auto}
+h1{font-size:1.5rem;margin:8px 0 14px;text-align:center}
+h1 span{display:inline-block;background:var(--sun);border:3px solid var(--ink);border-radius:14px;padding:2px 12px;box-shadow:0 4px 0 var(--ink)}
+.card{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:18px;box-shadow:0 6px 0 var(--ink)}
+.notice{background:#fff7cc;border:3px dashed var(--ink);border-radius:16px;padding:12px 14px;margin:0 0 14px;font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer}
+.go{display:block;width:100%;background:var(--stamp);color:#fff;font-weight:700;font-size:1.15rem;padding:14px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);margin-top:12px}
+.go.b{background:#2a7fba}.go.c{background:#7b4fb3}
+.go.sub{background:var(--sun);color:var(--ink)}
+.go:active,.judge button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+:focus-visible{outline:4px solid var(--stamp);outline-offset:3px}
+.bar{display:flex;justify-content:space-between;font-weight:700;margin-bottom:10px}
+.score{background:var(--ok);color:#fff;border-radius:999px;padding:0 12px}
+.tag{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:0 12px;font-size:.9rem;font-weight:700;margin-right:6px}
+.pic{display:block;width:100%;max-height:340px;object-fit:contain;margin:10px 0;border:3px solid var(--ink);border-radius:12px;background:#f1ece0}
+.nopic{margin:10px 0;padding:24px 12px;border:3px dashed var(--ng);border-radius:12px;text-align:center;font-size:.9rem}
+.haiku{white-space:pre-line;text-align:center;font-size:1.6rem;font-weight:700;line-height:1.9;margin:10px 0;padding:14px;border:3px solid var(--ink);border-radius:16px;background:#fdf6e3}
+.q{font-size:1.25rem;font-weight:700;margin:10px 0;line-height:1.5}
+.write{text-align:center;font-weight:700;background:#eaf5ff;border:2px solid var(--ink);border-radius:14px;padding:8px;margin:12px 0}
+.ans{text-align:center;margin:0 0 14px;padding:14px;border:3px solid var(--ok);border-radius:16px;background:#eafaf1}
+.ans small{display:block;font-weight:700}
+.ans .a{font-size:1.5rem;font-weight:700;line-height:1.4}
+.ans .n{font-size:.95rem;margin-top:6px}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.judge button{font-weight:700;font-size:1.2rem;padding:14px 6px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink)}
+.judge .ok{background:var(--ok);color:#fff}.judge .ng{background:var(--ng);color:#fff}
+.big{font-size:3rem;font-weight:700;text-align:center;line-height:1.2;margin:4px 0}.big small{font-size:1.2rem}
+.msg{text-align:center;font-weight:700;margin:0 0 12px}
+.miss{margin:12px 0;padding:0;list-style:none}
+.miss li{background:#fff4e0;border:2px solid var(--ng);border-radius:12px;padding:6px 12px;margin-bottom:8px;font-size:.95rem}
+.note{font-size:.85rem;text-align:center;margin:12px 0 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1><span>江戸の文化クイズ</span></h1>
+
+<section id="start" class="card">
+  <div class="notice">✏️ ノートと えんぴつを用意してね。<br>答えは、このアプリには入力しないで、<b>自分のノートに書く</b>よ。</div>
+  <p>江戸時代の二大文化「元禄文化」と「化政文化」の問題だよ。絵・俳句・ことばの問題が出るよ。答えを見たら、自分で「正解」か「不正解」をえらぼう。不正解だった問題は、あとでもう一度チャレンジできるよ。</p>
+  <button class="go" data-m="all">ぜんぶ出題</button>
+  <button class="go b" data-m="元禄">元禄文化だけ</button>
+  <button class="go c" data-m="化政">化政文化だけ</button>
+  <p class="note">絵の画像は images フォルダに置いてね(くわしくは IMAGES.md)。</p>
+</section>
+
+<section id="quiz" class="card" hidden>
+  <div class="bar"><span id="prog"></span><span class="score" id="score"></span></div>
+  <div><span class="tag" id="tag1"></span><span class="tag" id="tag2"></span></div>
+  <img class="pic" id="pic" alt="作品の画像" hidden>
+  <div class="nopic" id="nopic" hidden>画像ファイルがまだありません。<br><span id="nopicName"></span></div>
+  <div class="haiku" id="haiku" hidden></div>
+  <div class="q" id="qtxt"></div>
+  <div class="write">✏️ 答えを、ノートに書こう</div>
+  <button class="go" id="showBtn">答えを見る</button>
+  <div id="reveal" hidden>
+    <div class="ans"><small>正しい答え</small><div class="a" id="ans"></div><div class="n" id="ansn"></div></div>
+    <p class="msg">ノートの答えは合っていた？</p>
+    <div class="judge"><button class="ok" id="okBtn">正解</button><button class="ng" id="ngBtn">不正解</button></div>
+  </div>
+</section>
+
+<section id="result" class="card" hidden>
+  <div class="msg" id="rmsg"></div>
+  <div class="big" id="rscore"></div>
+  <p class="note" id="rfirst"></p>
+  <ul class="miss" id="rmiss"></ul>
+  <button class="go" id="retryBtn">不正解だった問題にもう一度</button>
+  <button class="go sub" id="againBtn">さいしょにもどる</button>
+</section>
+</main>
+
+<script>
+// c=文化, k=種類(img絵/haiku俳句/text ことば), a=答え, n=ひとこと
+const D=[
+// ---- 元禄文化 ----
+{c:"元禄",k:"img",img:"images/ukiyoe-01.jpg",a:"菱川師宣『見返り美人図』",n:"ふり返る女性をえがいた浮世絵。師宣は、浮世絵のはじまりをつくった人とされる。"},
+{c:"元禄",k:"img",img:"images/ukiyoe-02.jpg",a:"尾形光琳『燕子花図屏風』",n:"かざりのように美しく、はなやかな絵。光琳は、元禄文化をかざった画家。"},
+{c:"元禄",k:"haiku",h:"夏草や\n兵どもが\n夢の跡",a:"松尾芭蕉『奥の細道』",n:"芭蕉が東北などを旅して書いた紀行文が『奥の細道』。"},
+{c:"元禄",k:"haiku",h:"閑さや\n岩にしみ入る\n蝉の声",a:"松尾芭蕉『奥の細道』",n:"俳諧(俳句)を芸術にまで高めた人物。"},
+{c:"元禄",k:"haiku",h:"五月雨を\nあつめて早し\n最上川",a:"松尾芭蕉『奥の細道』",n:"『奥の細道』は、入試で超頻出のことば。"},
+{c:"元禄",k:"text",q:"元禄文化が栄えたのは、どこ？ 文化の中心になった人たちも書こう。",a:"上方(京都・大阪)／豪商(商人)",n:"商売で力をつけた豪商たちが、はなやかな文化を支えた。"},
+{c:"元禄",k:"text",q:"元禄文化のころの将軍はだれ？",a:"5代将軍・徳川綱吉",n:"時期は17世紀末。化政文化(11代家斉)とまちがえないように。"},
+{c:"元禄",k:"text",q:"人形浄瑠璃の台本を書き、義理や人情に悩む人々を描いた人はだれ？",a:"近松門左衛門",n:"元禄文化の三人のスターの一人。"},
+{c:"元禄",k:"text",q:"「浮世草子」とよばれる小説で、町人の生き方や恋、お金もうけを書いた人はだれ？",a:"井原西鶴",n:"町人のリアルな暮らしを、おもしろく書いた。"},
+{c:"元禄",k:"text",q:"松尾芭蕉が活やくしたのは、元禄文化と化政文化のどっち？",a:"元禄文化",n:"芭蕉は、化政文化より100年以上前の人。「化政文化の芭蕉」は×。"},
+// ---- 化政文化 ----
+{c:"化政",k:"img",img:"images/ukiyoe-03.jpg",a:"葛飾北斎『富嶽三十六景』(神奈川沖浪裏)",n:"力強く富士山をえがいた風景画。波がザバーン！と力強いのが北斎。"},
+{c:"化政",k:"img",img:"images/ukiyoe-04.jpg",a:"歌川広重『東海道五十三次』(庄野 白雨)",n:"雨や雪、宿場町の風景が得意。落ち着いた雰囲気が広重。"},
+{c:"化政",k:"img",img:"images/ukiyoe-05.jpg",a:"喜多川歌麿『ポッピンを吹く女』",n:"歌麿は美人画で有名。「ビードロを吹く女」ともよばれる。"},
+{c:"化政",k:"img",img:"images/ukiyoe-06.jpg",a:"東洲斎写楽『三代目大谷鬼次の奴江戸兵衛』",n:"歌舞伎役者を、独特の表情で描いた役者絵。"},
+{c:"化政",k:"haiku",h:"雀の子\nそこのけそこのけ\nお馬が通る",a:"小林一茶(代表作:『おらが春』など)",n:"庶民や小さな生き物への愛を詠んだ。代表作は教材によってちがうことがある。"},
+{c:"化政",k:"haiku",h:"菜の花や\n月は東に\n日は西に",a:"与謝蕪村(代表作:『蕪村句集』など)",n:"絵画のように美しい俳句。蕪村は画家でもあった。"},
+{c:"化政",k:"text",q:"化政文化が栄えたのは、どこ？ 文化の中心になった人たちも書こう。",a:"江戸／庶民(町人)",n:"ふつうの町人が楽しんだ、ユーモアや皮肉のある文化。"},
+{c:"化政",k:"text",q:"化政文化のころの将軍はだれ？",a:"11代将軍・徳川家斉",n:"時期は19世紀の初め。"},
+{c:"化政",k:"text",q:"弥次さん・喜多さんの珍道中を描いた滑稽本『東海道中膝栗毛』を書いた人はだれ？",a:"十返舎一九",n:"ベストセラーになり、庶民の旅ブームを広げた。"},
+{c:"化政",k:"text",q:"読本『南総里見八犬伝』を書いた人はだれ？",a:"滝沢馬琴(曲亭馬琴)",n:"化政文化の文学のスターの一人。"}
+];
+const KIND={img:"絵",haiku:"俳句",text:"ことば"};
+const QT={img:"この絵をえがいた人はだれ？ 作品の名前も書こう。",haiku:"この俳句をよんだのはだれ？ その人の有名な作品も書けたら書こう。"};
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let queue,missed,total,firstCorrect,round,idx,roundCorrect;
+
+function show(id){["start","quiz","result"].forEach(s=>$(s).hidden=s!==id)}
+function startAll(m){
+  queue=shuffle(D.filter(d=>m==="all"||d.c===m));
+  total=queue.length;firstCorrect=0;round=1;begin();
+}
+function begin(){idx=0;roundCorrect=0;missed=[];show("quiz");ask()}
+const label=q=>q.k==="img"?"絵の問題":q.k==="haiku"?"俳句「"+q.h.split("\n")[0]+"…」":q.q;
+
+function ask(){
+  const q=queue[idx];
+  $("prog").textContent=(round>1?"もう一度 ":"")+(idx+1)+" / "+queue.length+" もん";
+  $("score").textContent="正解 "+roundCorrect;
+  $("tag1").textContent=q.c+"文化";$("tag2").textContent=KIND[q.k]+"の問題";
+  const pic=$("pic"),np=$("nopic"),hk=$("haiku");
+  pic.hidden=true;np.hidden=true;hk.hidden=q.k!=="haiku";
+  if(q.k==="haiku")hk.textContent=q.h;
+  if(q.k==="img"){
+    pic.onerror=()=>{pic.hidden=true;$("nopicName").textContent="置き場所: "+q.img;np.hidden=false};
+    pic.onload=()=>{pic.hidden=false;np.hidden=true};
+    pic.src=q.img;
+  }
+  $("qtxt").textContent=q.k==="text"?q.q:QT[q.k];
+  $("ans").textContent=q.a;$("ansn").textContent=q.n;
+  $("reveal").hidden=true;$("showBtn").hidden=false;$("showBtn").focus();
+}
+function judge(right){
+  const q=queue[idx];
+  if(right){roundCorrect++;if(round===1)firstCorrect++}else missed.push(q);
+  idx++;idx<queue.length?ask():finish();
+}
+function finish(){
+  show("result");
+  const n=queue.length,r=roundCorrect/n;
+  $("rscore").innerHTML=roundCorrect+" <small>/ "+n+" もん 正解</small>";
+  $("rmsg").textContent=missed.length===0?(round===1?"ぜんぶ正解！ パーフェクト！":"ぜんぶ正解！ よくがんばったね！"):r>=.8?"おしい！ あとすこし！":r>=.5?"いい調子！ 不正解だったところを見なおそう":"ここからのびるよ！ もう一度やってみよう";
+  $("rfirst").textContent=round>1?"1回目の正解: "+firstCorrect+" / "+total+" もん":"";
+  const ul=$("rmiss");ul.innerHTML="";
+  missed.forEach(q=>{const li=document.createElement("li");li.textContent=label(q)+" → "+q.a;ul.appendChild(li)});
+  $("retryBtn").hidden=missed.length===0;
+}
+document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>startAll(b.dataset.m));
+$("showBtn").onclick=()=>{$("showBtn").hidden=true;$("reveal").hidden=false};
+$("okBtn").onclick=()=>judge(true);
+$("ngBtn").onclick=()=>judge(false);
+$("retryBtn").onclick=()=>{queue=shuffle(missed);round++;begin()};
+$("againBtn").onclick=()=>show("start");
+</script>
+</body>
+</html>

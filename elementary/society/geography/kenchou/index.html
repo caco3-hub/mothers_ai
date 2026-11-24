@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>県庁所在地クイズ ノート版｜お母さんの愛AI</title>
+<style>
+:root{--sea:#d6ecfa;--ink:#1d3557;--card:#fff;--ok:#2a9d5c;--ng:#ef8a1f;--sun:#ffd23f;--stamp:#e63946}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","BIZ UDPGothic","Yu Gothic","Meiryo",sans-serif;
+  color:var(--ink);background-color:var(--sea);
+  background-image:linear-gradient(rgba(29,53,87,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(29,53,87,.08) 1px,transparent 1px);
+  background-size:32px 32px;min-height:100vh;padding:16px;line-height:1.6;
+}
+main{max-width:520px;margin:0 auto}
+h1{font-size:1.4rem;margin:8px 0 14px;text-align:center}
+h1 span{display:inline-block;background:var(--sun);border:3px solid var(--ink);border-radius:14px;padding:2px 12px;box-shadow:0 4px 0 var(--ink)}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:22px;padding:20px;box-shadow:0 6px 0 var(--ink)}
+.lead{margin:0 0 16px}
+.notice{background:#fff7cc;border:3px dashed var(--ink);border-radius:16px;padding:12px 14px;margin:0 0 16px;font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer}
+.go{display:block;width:100%;background:var(--stamp);color:#fff;font-weight:700;font-size:1.2rem;padding:14px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink)}
+.go.sub{background:var(--sun);color:var(--ink);margin-top:12px}
+.go:active,.judge button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+:focus-visible{outline:4px solid var(--stamp);outline-offset:3px}
+.bar{display:flex;justify-content:space-between;font-weight:700;margin-bottom:10px}
+.score{background:var(--ok);color:#fff;border-radius:999px;padding:0 12px}
+.q{text-align:center;margin:6px 0 16px}
+.q small{display:block}
+.q .pref{font-size:2.4rem;font-weight:700;line-height:1.5}
+.write{text-align:center;font-weight:700;background:#eaf5ff;border:2px solid var(--ink);border-radius:14px;padding:8px;margin-bottom:16px}
+.ans{text-align:center;margin:0 0 16px;padding:14px;border:3px solid var(--ok);border-radius:16px;background:#eafaf1}
+.ans small{display:block;font-weight:700}
+.ans .city{font-size:2.2rem;font-weight:700;line-height:1.5}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.judge button{font-weight:700;font-size:1.2rem;padding:14px 6px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink)}
+.judge .ok{background:var(--ok);color:#fff}
+.judge .ng{background:var(--ng);color:#fff}
+.big{font-size:3rem;font-weight:700;text-align:center;line-height:1.2;margin:4px 0}
+.big small{font-size:1.2rem}
+.msg{text-align:center;font-weight:700;margin:0 0 12px}
+.miss{margin:12px 0;padding:0;list-style:none}
+.miss li{background:#fff4e0;border:2px solid var(--ng);border-radius:12px;padding:6px 12px;margin-bottom:8px}
+.note{font-size:.9rem;text-align:center;margin:12px 0 0}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<h1><span>県庁所在地クイズ ノート版</span></h1>
+
+<section id="start" class="card">
+  <div class="notice">✏️ ノートと えんぴつを用意してね。<br>答えは、このアプリには入力しないで、<b>自分のノートに書く</b>よ。</div>
+  <p class="lead">県名と県庁所在地(けんちょうしょざいち)の名前が<b>ちがう</b>18道県。県庁所在地を、<b>漢字</b>でノートに書こう。<br>答えを見たら、自分で「正解」か「不正解」をえらぶよ。</p>
+  <button class="go" id="startBtn">スタート</button>
+  <p class="note">不正解だった問題は、あとでもう一度チャレンジできるよ。</p>
+</section>
+
+<section id="quiz" class="card" hidden>
+  <div class="bar"><span id="prog"></span><span class="score" id="score"></span></div>
+  <div class="q"><small>県庁所在地は？</small><div class="pref" id="pref"></div></div>
+  <div class="write">✏️ 答えを、ノートに漢字で書こう</div>
+  <button class="go" id="showBtn">答えを見る</button>
+  <div id="reveal" hidden>
+    <div class="ans"><small>正しい答え</small><div class="city" id="city"></div></div>
+    <p class="msg">ノートの答えは合っていた？</p>
+    <div class="judge">
+      <button class="ok" id="okBtn">正解</button>
+      <button class="ng" id="ngBtn">不正解</button>
+    </div>
+  </div>
+</section>
+
+<section id="result" class="card" hidden>
+  <div class="msg" id="rmsg"></div>
+  <div class="big" id="rscore"></div>
+  <p class="note" id="rfirst"></p>
+  <ul class="miss" id="rmiss"></ul>
+  <button class="go" id="retryBtn">不正解だった問題にもう一度</button>
+  <button class="go sub" id="againBtn">さいしょからやる</button>
+</section>
+</main>
+
+<script>
+// [県名, 県名のよみ, 県庁所在地, 県庁所在地のよみ] 県名と県庁所在地名が異なる18道県
+const DATA=[
+["北海道","ほっかいどう","札幌","さっぽろ"],["岩手","いわて","盛岡","もりおか"],
+["宮城","みやぎ","仙台","せんだい"],["茨城","いばらき","水戸","みと"],
+["栃木","とちぎ","宇都宮","うつのみや"],["群馬","ぐんま","前橋","まえばし"],
+["埼玉","さいたま","さいたま","さいたま"],["神奈川","かながわ","横浜","よこはま"],
+["山梨","やまなし","甲府","こうふ"],["石川","いしかわ","金沢","かなざわ"],
+["愛知","あいち","名古屋","なごや"],["三重","みえ","津","つ"],
+["滋賀","しが","大津","おおつ"],["兵庫","ひょうご","神戸","こうべ"],
+["島根","しまね","松江","まつえ"],["香川","かがわ","高松","たかまつ"],
+["愛媛","えひめ","松山","まつやま"],["沖縄","おきなわ","那覇","なは"]
+];
+const $=id=>document.getElementById(id);
+const rb=(k,y)=>k===y?k:`<ruby>${k}<rt>${y}</rt></ruby>`;
+const pref=d=>rb(d[0],d[1])+(d[0]==="北海道"?"":"県");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let queue,missed,total,firstCorrect,round,idx,roundCorrect;
+
+function show(id){["start","quiz","result"].forEach(s=>$(s).hidden=s!==id)}
+function startAll(){queue=shuffle(DATA);total=queue.length;firstCorrect=0;round=1;begin()}
+function begin(){idx=0;roundCorrect=0;missed=[];show("quiz");ask()}
+
+function ask(){
+  const q=queue[idx];
+  $("prog").textContent=(round>1?"もう一度 ":"")+(idx+1)+" / "+queue.length+" もん";
+  $("score").textContent="正解 "+roundCorrect;
+  $("pref").innerHTML=pref(q);
+  $("city").innerHTML=rb(q[2],q[3]);
+  $("reveal").hidden=true;$("showBtn").hidden=false;$("showBtn").focus();
+}
+
+function reveal(){$("showBtn").hidden=true;$("reveal").hidden=false}
+
+function judge(right){
+  const q=queue[idx];
+  if(right){roundCorrect++;if(round===1)firstCorrect++}else missed.push(q);
+  idx++;idx<queue.length?ask():finish();
+}
+
+function finish(){
+  show("result");
+  const n=queue.length,r=roundCorrect/n;
+  $("rscore").innerHTML=roundCorrect+" <small>/ "+n+" もん 正解</small>";
+  $("rmsg").textContent=missed.length===0?(round===1?"ぜんぶ正解！ パーフェクト！":"ぜんぶ正解！ よくがんばったね！"):r>=.8?"おしい！ あとすこし！":r>=.5?"いい調子！ 不正解だったところを見なおそう":"ここからのびるよ！ もう一度やってみよう";
+  $("rfirst").textContent=round>1?"1回目の正解: "+firstCorrect+" / "+total+" もん":"";
+  const ul=$("rmiss");ul.innerHTML="";
+  missed.forEach(d=>{const li=document.createElement("li");li.innerHTML=pref(d)+" → "+rb(d[2],d[3]);ul.appendChild(li)});
+  $("retryBtn").hidden=missed.length===0;
+}
+
+$("startBtn").onclick=startAll;
+$("showBtn").onclick=reveal;
+$("okBtn").onclick=()=>judge(true);
+$("ngBtn").onclick=()=>judge(false);
+$("retryBtn").onclick=()=>{queue=shuffle(missed);round++;begin()};
+$("againBtn").onclick=startAll;
+</script>
+</body>
+</html>
