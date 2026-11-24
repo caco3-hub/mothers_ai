@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>化学式 単語帳｜お母さんの愛AI</title>
+<style>
+:root{--ink:#1b2a41;--bg:#f3f6fa;--line:#c9d3e0;--acc:#2563eb;--ok:#15803d;--ng:#c2410c;--mute:#4a5b73}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Hiragino Sans","Yu Gothic","Meiryo",sans-serif;color:var(--ink);background:var(--bg);padding:16px;line-height:1.6}
+main{max-width:520px;margin:0 auto}
+h1{font-size:1.3rem;margin:8px 0 14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+fieldset{border:0;margin:0 0 12px;padding:0}
+legend{font-weight:700;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:.95rem}
+.chips input:checked+span{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.chips input:focus-visible+span{outline:3px solid var(--ink);outline-offset:2px}
+button{font:inherit;cursor:pointer}
+.go{display:block;width:100%;background:var(--acc);color:#fff;font-weight:700;font-size:1.05rem;padding:13px;border:0;border-radius:10px;margin-top:10px}
+.go.sub{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+.go.flag{background:#fff;color:var(--ng);border:2px solid var(--ng)}
+.go:disabled{opacity:.45;cursor:default}
+.link{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem;margin-top:8px;padding:0}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.bar{display:flex;justify-content:space-between;font-size:.95rem;margin-bottom:10px;color:var(--mute)}
+.card{position:relative;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fff;border:2px solid var(--ink);border-radius:18px;padding:20px;cursor:pointer;user-select:none;box-shadow:0 4px 0 var(--line)}
+.card.back{border-color:var(--ok);background:#f1faf4}
+.card .tag{font-size:.85rem;color:var(--mute);margin-bottom:6px}
+.card .main{font-size:3.6rem;font-weight:700;line-height:1.3;font-family:Arial,"Helvetica Neue",sans-serif}
+.card .main.jp{font-family:inherit;font-size:2.8rem}
+.card .sub{font-size:.95rem;color:var(--mute);margin-top:6px}
+.card .hint{font-size:.85rem;color:var(--mute);margin-top:14px}
+.mark{position:absolute;top:10px;right:12px;font-size:.85rem;font-weight:700;color:var(--ng)}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.judge button{padding:13px;border:0;border-radius:10px;color:#fff;font-weight:700;font-size:1.05rem}
+.judge .ok{background:var(--ok)}.judge .ng{background:var(--ng)}
+.big{font-size:2.4rem;font-weight:700;text-align:center;margin:4px 0}.big small{font-size:1rem}
+.msg{text-align:center;font-weight:700;margin:0 0 8px}
+.note{font-size:.85rem;text-align:center;color:var(--mute);margin:10px 0 0}
+[hidden]{display:none!important}
+.card .main{overflow-wrap:anywhere}.card .main sub{font-size:.6em}
+.rule{font-size:.9rem;color:var(--mute);margin:0 0 12px}
+</style>
+</head>
+<body>
+<main>
+<h1>化学式 単語帳</h1>
+
+<section id="start" class="panel">
+  <p class="rule">※ 原子の個数や比は、元素記号の右下に小さく書く（例：H<sub>2</sub>O）</p>
+  <fieldset class="chips"><legend>出題（いくつでも選べます）</legend>
+    <label><input type="checkbox" name="mode" value="n2f" checked><span>名称 → 化学式</span></label>
+    <label><input type="checkbox" name="mode" value="f2n"><span>化学式 → 名称</span></label>
+    <label><input type="checkbox" name="mode" value="typ"><span>単体か化合物か</span></label>
+    <label><input type="checkbox" name="mode" value="mol"><span>分子か分子でないか</span></label>
+  </fieldset>
+  <fieldset class="chips"><legend>範囲</legend>
+    <label><input type="radio" name="range" value="all" checked><span>全部(59)</span></label>
+    <label><input type="radio" name="range" value="mol"><span>分子(25)</span></label>
+    <label><input type="radio" name="range" value="non"><span>分子でない(34)</span></label>
+    <label><input type="radio" name="range" value="elem"><span>単体(14)</span></label>
+    <label><input type="radio" name="range" value="org"><span>有機化合物(6)</span></label>
+  </fieldset>
+  <fieldset class="chips"><legend>順番</legend>
+    <label><input type="radio" name="order" value="rand" checked><span>ランダム</span></label>
+    <label><input type="radio" name="order" value="seq"><span>プリントの順</span></label>
+  </fieldset>
+  <button class="go" id="startBtn">スタート</button>
+  <button class="go flag" id="flagBtn">★ 印をつけたカードだけ復習（<span id="flagCount">0</span>枚）</button>
+  <button class="link" id="clearBtn">印をすべて消す</button>
+  <p class="note">カードをタップすると答えが出ます。「まちがえた」を押すと印がつき、あとで復習できます。印は、このブラウザに保存されます。</p>
+</section>
+
+<section id="study" class="panel" hidden>
+  <div class="bar"><span id="prog"></span><span id="stat"></span></div>
+  <div class="card" id="card" role="button" tabindex="0" aria-live="polite">
+    <span class="mark" id="mark" hidden>★ 印あり</span>
+    <div class="tag" id="tag"></div>
+    <div class="main" id="main"></div>
+    <div class="sub" id="subt"></div>
+    <div class="hint" id="hint">タップして答えを見る</div>
+  </div>
+  <div class="judge" id="judge" hidden>
+    <button class="ng" id="ngBtn">まちがえた（印）</button>
+    <button class="ok" id="okBtn">わかった</button>
+  </div>
+  <p class="note">パソコン: スペースで答え、1 で「まちがえた」、2 で「わかった」</p>
+</section>
+
+<section id="result" class="panel" hidden>
+  <div class="msg" id="rmsg"></div>
+  <div class="big" id="rscore"></div>
+  <p class="note" id="rflag"></p>
+  <button class="go flag" id="reviewBtn">★ 印をつけたカードを復習</button>
+  <button class="go sub" id="againBtn">最初にもどる</button>
+</section>
+</main>
+
+<script>
+// [名称, 化学式, 単体/化合物, 分子/分子でない]
+const L="分子",R="分子でない";
+const F=[
+["水素","H2","単体",L],["酸素","O2","単体",L],["水","H2O","化合物",L],["過酸化水素","H2O2","化合物",L],
+["炭素","C","単体",L],["一酸化炭素","CO","化合物",L],["二酸化炭素","CO2","化合物",L],["炭酸","H2CO3","化合物",L],
+["窒素","N2","単体",L],["一酸化窒素","NO","化合物",L],["二酸化窒素","NO2","化合物",L],["硝酸","HNO3","化合物",L],
+["アンモニア","NH3","化合物",L],["硫黄","S","単体",L],["二酸化硫黄","SO2","化合物",L],["硫酸","H2SO4","化合物",L],
+["硫化水素","H2S","化合物",L],["塩素","Cl2","単体",L],["塩化水素(塩酸)","HCl","化合物",L],
+["メタン","CH4","化合物",L],["エタン","C2H6","化合物",L],["プロパン","C3H8","化合物",L],
+["メタノール","CH3OH","化合物",L],["エタノール","C2H5OH","化合物",L],["酢酸","CH3COOH","化合物",L],
+["塩化アンモニウム","NH4Cl","化合物",R],["ナトリウム","Na","単体",R],["塩化ナトリウム","NaCl","化合物",R],
+["水酸化ナトリウム","NaOH","化合物",R],["炭酸水素ナトリウム","NaHCO3","化合物",R],["炭酸ナトリウム","Na2CO3","化合物",R],
+["マグネシウム","Mg","単体",R],["酸化マグネシウム","MgO","化合物",R],["硫酸マグネシウム","MgSO4","化合物",R],
+["カルシウム","Ca","単体",R],["酸化カルシウム","CaO","化合物",R],["水酸化カルシウム","Ca(OH)2","化合物",R],
+["炭酸カルシウム","CaCO3","化合物",R],["塩化カルシウム","CaCl2","化合物",R],
+["バリウム","Ba","単体",R],["水酸化バリウム","Ba(OH)2","化合物",R],["塩化バリウム","BaCl2","化合物",R],["硫酸バリウム","BaSO4","化合物",R],
+["鉄","Fe","単体",R],["四酸化三鉄","Fe3O4","化合物",R],["硫化鉄","FeS","化合物",R],["塩化鉄","FeCl2","化合物",R],
+["銅","Cu","単体",R],["酸化銅","CuO","化合物",R],["硫化銅","CuS","化合物",R],["塩化銅","CuCl2","化合物",R],
+["硝酸銅","Cu(NO3)2","化合物",R],["硫酸銅","CuSO4","化合物",R],
+["亜鉛","Zn","単体",R],["硫酸亜鉛","ZnSO4","化合物",R],
+["銀","Ag","単体",R],["酸化銀","Ag2O","化合物",R],["硝酸銀","AgNO3","化合物",R],["塩化銀","AgCl","化合物",R]
+];
+const ORG=new Set(["メタン","エタン","プロパン","メタノール","エタノール","酢酸"]);
+const PRED={all:()=>true,mol:f=>f[3]===L,non:f=>f[3]===R,elem:f=>f[2]==="単体",org:f=>ORG.has(f[0])};
+const KEY="formula-flags-v1";
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const val=n=>document.querySelector('input[name="'+n+'"]:checked').value;
+const sub=s=>s.replace(/([A-Za-z)])(\d+)/g,"$1<sub>$2</sub>");
+const cid=c=>c.f[0]+":"+c.d;
+
+let flags=new Set();
+try{flags=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify([...flags]))}catch(e){}}
+
+let deck,i,flipped,known,reviewMode;
+const DIRS=["n2f","f2n","typ","mol"];
+const TAG={n2f:"名称 → 化学式",f2n:"化学式 → 名称",typ:"単体？ 化合物？",mol:"分子？ 分子でない？"};
+const allCards=()=>F.flatMap(f=>DIRS.map(d=>({f,d})));
+function show(id){["start","study","result"].forEach(s=>$(s).hidden=s!==id);if(id==="start")refresh()}
+function refresh(){$("flagCount").textContent=flags.size;$("flagBtn").disabled=flags.size===0}
+
+function begin(cards,review){
+  reviewMode=review;
+  deck=val("order")==="seq"&&!review?cards:shuffle(cards);
+  i=0;known=0;show("study");render();
+}
+function startNormal(){
+  const p=PRED[val("range")];
+  const modes=[...document.querySelectorAll('input[name="mode"]:checked')].map(x=>x.value);
+  if(!modes.length){modes.push("n2f");document.querySelector('input[name="mode"]').checked=true}
+  begin(allCards().filter(c=>p(c.f)&&modes.includes(c.d)),false);
+}
+function startReview(){
+  const c=allCards().filter(c=>flags.has(cid(c)));
+  if(c.length)begin(c,true);
+}
+function setMain(text,isFormula){
+  const m=$("main"),n=text.length;
+  if(isFormula){m.innerHTML=sub(text);m.className="main";m.style.fontSize=(n>8?2.2:n>5?2.8:3.6)+"rem"}
+  else{m.textContent=text;m.className="main jp";m.style.fontSize=(n>8?1.7:n>5?2.2:2.8)+"rem"}
+}
+function render(){
+  const c=deck[i];flipped=false;
+  $("prog").textContent=(reviewMode?"復習 ":"")+(i+1)+" / "+deck.length;
+  $("stat").textContent="わかった "+known+"　★ "+flags.size;
+  $("card").classList.remove("back");
+  $("tag").textContent=TAG[c.d];
+  c.d==="n2f"?setMain(c.f[0],false):setMain(c.f[1],true);
+  $("subt").textContent="";$("hint").hidden=false;$("judge").hidden=true;
+  $("mark").hidden=!flags.has(cid(c));
+}
+function flip(){
+  if(flipped)return;flipped=true;
+  const c=deck[i],f=c.f;
+  $("card").classList.add("back");$("tag").textContent="答え";
+  const org=ORG.has(f[0])?"／有機化合物":"";
+  if(c.d==="n2f"||c.d==="f2n"){
+    c.d==="n2f"?setMain(f[1],true):setMain(f[0],false);
+    $("subt").textContent=f[2]+"／"+f[3]+org;
+  }else if(c.d==="typ"){
+    setMain(f[2],false);
+    $("subt").innerHTML=f[0]+"　"+sub(f[1])+"<br>"+(f[2]==="単体"?"元素の種類が1つ":"2種類以上の元素でできている");
+  }else{
+    setMain(f[3],false);
+    $("subt").innerHTML=f[0]+"　"+sub(f[1])+"<br>"+f[2]+org;
+  }
+  $("hint").hidden=true;$("judge").hidden=false;
+}
+function judge(good){
+  if(!flipped)return;
+  const id=cid(deck[i]);
+  if(good){known++;flags.delete(id)}else flags.add(id);
+  save();i++;i<deck.length?render():finish();
+}
+function finish(){
+  show("result");
+  $("rmsg").textContent=flags.size===0?"印はゼロ！ よく覚えました":"おつかれさま！ 印のカードを復習しよう";
+  $("rscore").innerHTML=known+" <small>/ "+deck.length+" わかった</small>";
+  $("rflag").textContent="印のカード: "+flags.size+"枚";
+  $("reviewBtn").hidden=flags.size===0;
+}
+$("startBtn").onclick=startNormal;
+$("flagBtn").onclick=startReview;
+$("reviewBtn").onclick=startReview;
+$("againBtn").onclick=()=>show("start");
+$("clearBtn").onclick=()=>{if(flags.size&&confirm("印をすべて消しますか？")){flags.clear();save();refresh()}};
+$("card").onclick=flip;
+$("okBtn").onclick=()=>judge(true);
+$("ngBtn").onclick=()=>judge(false);
+document.addEventListener("keydown",e=>{
+  if($("study").hidden)return;
+  if((e.key===" "||e.key==="Enter")&&e.target.tagName!=="BUTTON"){e.preventDefault();flip()}
+  else if(e.key==="1")judge(false);else if(e.key==="2")judge(true);
+});
+refresh();
+</script>
+</body>
+</html>
