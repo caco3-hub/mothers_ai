@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>幕末 一問一答｜お母さんの愛AI</title>
+<style>
+:root{--sea:#d6ecfa;--ink:#1d3557;--ok:#2a9d5c;--ng:#ef8a1f;--sun:#ffd23f;--stamp:#e63946;--mute:#52627a}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","BIZ UDPGothic","Yu Gothic","Meiryo",sans-serif;color:var(--ink);background-color:var(--sea);
+background-image:linear-gradient(rgba(29,53,87,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(29,53,87,.08) 1px,transparent 1px);background-size:32px 32px;min-height:100vh;padding:16px;line-height:1.6}
+main{max-width:560px;margin:0 auto}
+h1{font-size:1.45rem;margin:8px 0 14px;text-align:center}
+h1 span{display:inline-block;background:var(--sun);border:3px solid var(--ink);border-radius:14px;padding:2px 12px;box-shadow:0 4px 0 var(--ink)}
+.panel{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:18px;box-shadow:0 6px 0 var(--ink)}
+fieldset{border:0;margin:0 0 12px;padding:0}
+legend{font-weight:700;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:block;padding:7px 13px;border:2px solid var(--ink);border-radius:999px;background:#fff;font-size:.92rem}
+.chips input:checked+span{background:var(--ink);color:#fff;font-weight:700}
+.chips input:focus-visible+span{outline:4px solid var(--stamp);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+.go{display:block;width:100%;background:var(--stamp);color:#fff;font-weight:700;font-size:1.15rem;padding:13px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);margin-top:12px}
+.go.sub{background:var(--sun);color:var(--ink)}
+.go.flag{background:#fff;color:var(--ng)}
+.go:disabled{opacity:.45;cursor:default}
+.go:active,.judge button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.link{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:.85rem;margin-top:8px;padding:0}
+:focus-visible{outline:4px solid var(--stamp);outline-offset:3px}
+.bar{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:.95rem;margin-bottom:10px}
+.timer{background:var(--ink);color:#fff;border-radius:999px;padding:0 12px}
+.card{position:relative;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:22px 16px;cursor:pointer;user-select:none;box-shadow:0 5px 0 var(--ink)}
+.card.back{border-color:var(--ok);background:#eafaf1}
+.card .tag{font-size:.85rem;font-weight:700;background:var(--sun);border:2px solid var(--ink);border-radius:999px;padding:0 12px;margin-bottom:10px}
+.card .main{font-size:1.35rem;font-weight:700;line-height:1.6}
+.card.back .main{font-size:1.9rem;line-height:1.4}
+.card .sub{font-size:.95rem;color:var(--mute);margin-top:8px}
+.card .hint{font-size:.85rem;color:var(--mute);margin-top:14px}
+.mark{position:absolute;top:10px;right:12px;font-size:.85rem;font-weight:700;color:var(--ng)}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.judge button{padding:13px 6px;border:3px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);color:#fff;font-weight:700;font-size:1.1rem}
+.judge .ok{background:var(--ok)}.judge .ng{background:var(--ng)}
+.lv{text-align:center;margin:4px 0 8px}
+.lv .e{font-size:3rem;line-height:1.2}
+.lv .n{font-size:2rem;font-weight:700}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.stats div{background:#f2f7fc;border:2px solid var(--ink);border-radius:12px;padding:6px 10px;text-align:center}
+.stats b{display:block;font-size:1.3rem}
+.next{text-align:center;font-weight:700;margin:6px 0 10px}
+.note{font-size:.85rem;text-align:center;color:var(--mute);margin:10px 0 0}
+details{margin-top:12px;font-size:.9rem}
+summary{cursor:pointer;font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:6px}
+td,th{border:1px solid var(--ink);padding:4px 8px;text-align:center}
+th{background:var(--sun)}
+.rec{margin:10px 0 0;padding:0;list-style:none;font-size:.9rem}
+.rec li{padding:3px 0;border-bottom:1px dashed var(--mute)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1><span>幕末 一問一答</span></h1>
+
+<section id="start" class="panel">
+  <p style="margin:0 0 12px">江戸時代の終わり（幕末）の一問一答だよ。カードをタップすると答えが出るよ。<br>まちがえたカードには★印がついて、あとでまとめて復習できるよ。</p>
+  <fieldset class="chips"><legend>範囲</legend><span id="rangeBox" style="display:contents"></span></fieldset>
+  <fieldset class="chips"><legend>順番</legend>
+    <label><input type="radio" name="order" value="rand" checked><span>ランダム</span></label>
+    <label><input type="radio" name="order" value="seq"><span>れきしの順</span></label>
+  </fieldset>
+  <button class="go" id="startBtn">スタート</button>
+  <button class="go flag" id="flagBtn">★ 印のカードだけ復習（<span id="flagCount">0</span>枚）</button>
+  <button class="link" id="clearBtn">印をすべて消す</button>
+  <details><summary>レベルの決まり方</summary>
+    <p style="margin:6px 0">正答率と、1問あたりの平均時間の両方で決まるよ（時間は、カードが出てから「わかった」「まちがえた」を押すまで）。</p>
+    <table id="lvTable"></table>
+  </details>
+  <details id="recBox" hidden><summary>さいきんの記録</summary><ul class="rec" id="recList"></ul></details>
+  <p class="note">印と記録は、この端末のブラウザに保存されます。</p>
+</section>
+
+<section id="study" class="panel" hidden>
+  <div class="bar"><span id="prog"></span><span class="timer" id="timer">0:00</span><span id="stat"></span></div>
+  <div class="card" id="card" role="button" tabindex="0" aria-live="polite">
+    <span class="mark" id="mark" hidden>★ 印あり</span>
+    <div class="tag" id="tag"></div>
+    <div class="main" id="main"></div>
+    <div class="sub" id="subt"></div>
+    <div class="hint" id="hint">タップして答えを見る</div>
+  </div>
+  <div class="judge" id="judge" hidden>
+    <button class="ng" id="ngBtn">まちがえた（印）</button>
+    <button class="ok" id="okBtn">わかった</button>
+  </div>
+  <p class="note">パソコン: スペースで答え、1 で「まちがえた」、2 で「わかった」</p>
+</section>
+
+<section id="result" class="panel" hidden>
+  <div class="lv"><div class="e" id="lvE"></div><div class="n" id="lvN"></div></div>
+  <div class="stats">
+    <div>正答<b id="sOk"></b></div><div>正答率<b id="sAcc"></b></div>
+    <div>かかった時間<b id="sTime"></b></div><div>1問あたり<b id="sAvg"></b></div>
+  </div>
+  <p class="next" id="nextHint"></p>
+  <p class="note" id="smallNote" hidden>問題数が少ないので、参考のレベルです。</p>
+  <button class="go flag" id="reviewBtn">★ 印のカードを復習</button>
+  <button class="go sub" id="againBtn">最初にもどる</button>
+</section>
+</main>
+
+<script>
+// ===== 設定(レベルの目安はここで調整できます) =====
+const CAP=120; // 1枚あたりの時間の上限(秒)。席をはずしても記録がのびすぎないように
+const LV=[ // 見習い → 達人。上から順に調べる(下のほうが高いレベル)
+ {n:"見習い",e:"🌱",acc:0,sec:999},
+ {n:"駆け出し",e:"🐣",acc:60,sec:30},
+ {n:"一人前",e:"🥈",acc:80,sec:15},
+ {n:"熟練",e:"🥇",acc:90,sec:9},
+ {n:"達人",e:"👑",acc:95,sec:6}
+];
+const KEY="bakumatsu-flags-v1",HKEY="bakumatsu-history-v1";
+
+// ===== 問題データ [範囲, 問題, 答え, よみ, ひとこと] =====
+const S=[{k:"g1",t:"① 外国船の来航と幕府"},{k:"g2",t:"② 黒船と開国"},{k:"g3",t:"③ 開国の影響"},{k:"g4",t:"④ 幕府の滅亡"},{k:"g5",t:"⑤ 年号"}];
+const C=[
+["g1","1792年、通商を求めて根室にやってきたロシアの使節は？","ラクスマン","","ロシアは北から日本に近づいてきた。"],
+["g1","北方の探検で、樺太が島であることを確かめたのはだれ？","間宮林蔵","まみやりんぞう",""],
+["g1","間宮林蔵が、島であることを確かめた北方の地はどこ？","樺太","からふと",""],
+["g1","蝦夷地の測量を始めたのはだれ？","伊能忠敬","いのうただたか",""],
+["g1","1825年、幕府が出した「外国船が近づいたらただちに攻撃せよ」という命令は？","異国船打払令（外国船打払令）","いこくせんうちはらいれい",""],
+["g1","1837年、異国船打払令にもとづいて外国船が砲撃された事件は？","モリソン号事件","",""],
+["g1","モリソン号事件のあと、幕府の鎖国政策を書物で批判して罰せられた蘭学者は？","高野長英","たかのちょうえい","渡辺崋山らも幕府を批判した。"],
+["g1","高野長英とともに、幕府の鎖国政策を批判した人物は？","渡辺崋山","わたなべかざん",""],
+["g1","1840年、清がイギリスに敗れた戦争は？","アヘン戦争","",""],
+["g1","アヘン戦争でイギリスに敗れた国はどこ？","清","しん",""],
+["g1","アヘン戦争のあと、外国船に水や食料をあたえるようにした老中は？","水野忠邦","みずのただくに",""],
+["g2","1853年、浦賀に来航したアメリカの人物は？","ペリー","",""],
+["g2","ペリーが来航した場所は？ 現在の何県にある？","浦賀（神奈川県）","うらが",""],
+["g2","ペリー来航のあと、江戸幕府が終わるまでの時代を何という？","幕末","ばくまつ",""],
+["g2","1854年、幕府がアメリカと結んで、日本が開国するきっかけになった条約は？","日米和親条約","にちべいわしんじょうやく","神奈川条約ともいう。"],
+["g2","日米和親条約で開かれた港は？（2つ）","下田（静岡県）・函館（北海道）","しもだ・はこだて",""],
+["g2","日米和親条約のあと、幕府が同じような条約を結んだ国は？（3つ）","イギリス・ロシア・オランダ","",""],
+["g2","アメリカの総領事として来日し、貿易を求めた人物は？","ハリス","",""],
+["g2","ハリスの要求を受けて条約を結んだ、幕府の大老はだれ？","井伊直弼","いいなおすけ",""],
+["g2","1858年に結ばれた、貿易を始めることを決めた条約は？","日米修好通商条約","にちべいしゅうこうつうしょうじょうやく",""],
+["g2","日米修好通商条約で、函館のほかに開かれた港は？（4つ）","神奈川（横浜）・長崎・新潟・兵庫（神戸）","かながわ（よこはま）・ながさき・にいがた・ひょうご（こうべ）",""],
+["g2","日米修好通商条約で、日本に認められなかった「輸出入品の税金を自分で決める権利」は？","関税自主権","かんぜいじしゅけん","日本の税金は、アメリカと相談して決めることになった。"],
+["g2","アメリカ人が日本で罪を犯したとき、アメリカの領事が裁判を行う権利は？","領事裁判権（治外法権）","りょうじさいばんけん（ちがいほうけん）",""],
+["g3","井伊直弼に処罰された、長州藩の武士で、松下村塾で人々を教育したのはだれ？","吉田松陰","よしだしょういん",""],
+["g3","井伊直弼が、幕府を批判する人々をきびしく処罰したできごとは？","安政の大獄","あんせいのたいごく",""],
+["g3","井伊直弼が水戸藩の浪人らに暗殺された事件は？","桜田門外の変","さくらだもんがいのへん",""],
+["g3","貿易が始まって、茶とともにさかんに輸出された、絹織物の材料は？","生糸","きいと",""],
+["g3","輸出がさかんになって国内が品不足になると、物価と人々の生活はどうなった？","物価が上がり、生活が苦しくなった","",""],
+["g3","外国人を打ち払おうという考え方は？","攘夷","じょうい",""],
+["g3","天皇を尊び、天皇を中心に政治を改めようという考え方は？","尊王","そんのう",""],
+["g3","攘夷論と尊王論が結びついて起こった運動は？","尊王攘夷運動","そんのうじょういうんどう",""],
+["g3","薩英戦争のきっかけになった、1862年の事件は？","生麦事件","なまむぎじけん",""],
+["g3","生麦事件の報復として、1863年に起こった、薩摩藩とイギリスの戦争は？","薩英戦争","さつえいせんそう",""],
+["g3","薩英戦争に敗れた藩は？ 現在の何県？","薩摩藩（鹿児島県）","さつまはん",""],
+["g3","1864年、4か国の連合艦隊に下関の砲台を占領された藩は？ 現在の何県？","長州藩（山口県）","ちょうしゅうはん",""],
+["g3","外国との戦いに敗れ、攘夷が無理だと知って、幕府を倒そうと考えるようになった2つの藩は？","薩摩藩・長州藩","さつまはん・ちょうしゅうはん",""],
+["g4","土佐藩（高知県）出身で、薩摩藩と長州藩のなかだちをした人物は？","坂本龍馬","さかもとりょうま",""],
+["g4","薩長同盟を結んだ、薩摩藩の中心人物は？（2人）","西郷隆盛・大久保利通","さいごうたかもり・おおくぼとしみち",""],
+["g4","薩長同盟を結んだ、長州藩の中心人物は？","木戸孝允","きどたかよし",""],
+["g4","1866年、薩摩藩と長州藩が結んだ、倒幕をめざす同盟は？","薩長同盟","さっちょうどうめい",""],
+["g4","江戸幕府の最後の将軍（15代）はだれ？","徳川慶喜","とくがわよしのぶ",""],
+["g4","徳川慶喜が政権を朝廷に返したできごとは？","大政奉還","たいせいほうかん",""],
+["g4","大政奉還が行われたのは、何年？","1867年","",""],
+["g4","大政奉還のあと、朝廷が天皇中心の新しい政治を行うと宣言した命令は？","王政復古の大号令","おうせいふっこのだいごうれい",""],
+["g4","王政復古の大号令で、新しい政治の中心とされた天皇は？","明治天皇","めいじてんのう",""],
+["g4","1868年から1869年にかけて、旧幕府側と新政府軍が戦った戦争は？","戊辰戦争","ぼしんせんそう",""],
+["g4","戊辰戦争の最初の戦いは？（現在の京都市）","鳥羽・伏見の戦い","とば・ふしみのたたかい",""],
+["g4","戊辰戦争で、旧幕府軍が新政府軍に降伏した最後の戦いは？（現在の北海道）","五稜郭の戦い（函館）","ごりょうかくのたたかい",""],
+["g4","新政府軍と会見して、江戸城の明け渡しを決めた幕府側の人物は？","勝海舟","かつかいしゅう",""],
+["g5","ロシアのラクスマンが根室に来たのは、何年？","1792年","",""],
+["g5","異国船打払令が出されたのは、何年？","1825年","",""],
+["g5","モリソン号事件が起こったのは、何年？","1837年","",""],
+["g5","高野長英や渡辺崋山が、幕府の鎖国政策を批判したのは、何年？","1838年","",""],
+["g5","老中の水野忠邦が、異国船打払令をやめたのは、何年？","1842年","",""],
+["g5","ペリーが浦賀に来たのは、何年？","1853年","",""],
+["g5","日米和親条約が結ばれて、日本が開国したのは、何年？","1854年","",""],
+["g5","日米修好通商条約が結ばれ、安政の大獄が起こったのは、何年？","1858年","",""],
+["g5","桜田門外の変が起こったのは、何年？","1860年","",""],
+["g5","生麦事件が起こったのは、何年？","1862年","","その翌年に、薩英戦争が起こった。"],
+["g5","薩英戦争が起こったのは、何年？","1863年","",""],
+["g5","長州藩が外国船を砲撃したのは、何年？","1863年","","その翌年に、4か国の連合艦隊が下関の砲台を占領した。"],
+["g5","4か国の連合艦隊が、長州藩の下関の砲台を占領したのは、何年？","1864年","",""],
+["g5","坂本龍馬らのなかだちで、薩長同盟が結ばれたのは、何年？","1866年","",""],
+["g5","徳川慶喜が大政奉還を行い、王政復古の大号令が出されたのは、何年？","1867年","","江戸幕府が滅亡した年。"],
+["g5","戊辰戦争が起こったのは、何年？","1868年","","翌年に、旧幕府軍が降伏した。"]
+];
+
+// ===== 共通 =====
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const val=n=>document.querySelector('input[name="'+n+'"]:checked').value;
+const cid=c=>c[1];
+const fmt=s=>{s=Math.round(s);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+const fmtJ=s=>{s=Math.round(s);return s>=60?Math.floor(s/60)+"分"+(s%60)+"秒":s+"秒"};
+
+let flags=new Set(),hist=[];
+try{flags=new Set(JSON.parse(localStorage.getItem(KEY)||"[]"))}catch(e){}
+try{hist=JSON.parse(localStorage.getItem(HKEY)||"[]")}catch(e){}
+const saveF=()=>{try{localStorage.setItem(KEY,JSON.stringify([...flags]))}catch(e){}};
+const saveH=()=>{try{localStorage.setItem(HKEY,JSON.stringify(hist.slice(-20)))}catch(e){}};
+
+// ===== レベル判定 =====
+function levelOf(acc,avg){let r=0;LV.forEach((l,i)=>{if(acc>=l.acc&&avg<=l.sec)r=i});return r}
+function nextHint(i,acc,avg){
+  if(i>=LV.length-1)return "最高レベル！ すごい！";
+  const nx=LV[i+1],need=[];
+  if(acc<nx.acc)need.push("正答率 "+nx.acc+"%以上");
+  if(avg>nx.sec)need.push("1問 "+nx.sec+"秒以内");
+  return "次の「"+nx.n+"」まで： "+need.join(" と ");
+}
+
+// ===== 画面 =====
+let deck,idx,flipped,known,reviewMode,total,t0,tickId;
+function show(id){["start","study","result"].forEach(s=>$(s).hidden=s!==id);if(id==="start")refresh()}
+function refresh(){
+  $("flagCount").textContent=flags.size;$("flagBtn").disabled=flags.size===0;
+  $("recBox").hidden=hist.length===0;
+  $("recList").innerHTML=hist.slice(-5).reverse().map(h=>"<li>"+h.d+"　"+h.e+h.l+"　"+h.ok+"/"+h.n+"問　"+h.avg.toFixed(1)+"秒/問"+(h.r?"（復習）":"")+"</li>").join("");
+}
+function buildStart(){
+  const box=$("rangeBox");
+  const opts=[["all","ぜんぶ ("+C.length+")"]].concat(S.map(s=>[s.k,s.t+" ("+C.filter(c=>c[0]===s.k).length+")"]));
+  box.innerHTML=opts.map((o,i)=>'<label><input type="radio" name="range" value="'+o[0]+'"'+(i?'':' checked')+'><span>'+o[1]+'</span></label>').join("");
+  $("lvTable").innerHTML="<tr><th>レベル</th><th>正答率</th><th>1問あたり</th></tr>"+LV.slice().reverse().map(l=>"<tr><td>"+l.e+" "+l.n+"</td><td>"+(l.acc?l.acc+"%以上":"-")+"</td><td>"+(l.sec<999?l.sec+"秒以内":"-")+"</td></tr>").join("");
+}
+function begin(cards,review){
+  reviewMode=review;
+  deck=val("order")==="seq"&&!review?cards:shuffle(cards);
+  idx=0;known=0;total=0;show("study");render();
+  clearInterval(tickId);tickId=setInterval(tick,500);
+}
+function startNormal(){const r=val("range");begin(C.filter(c=>r==="all"||c[0]===r),false)}
+function startReview(){const c=C.filter(c=>flags.has(cid(c)));if(c.length)begin(c,true)}
+function tick(){$("timer").textContent="⏱ "+fmt(total+Math.min((performance.now()-t0)/1000,CAP))}
+function render(){
+  const c=deck[idx];flipped=false;t0=performance.now();
+  $("prog").textContent=(reviewMode?"復習 ":"")+(idx+1)+" / "+deck.length;
+  $("stat").textContent="わかった "+known;
+  $("card").classList.remove("back");
+  $("tag").textContent=S.find(s=>s.k===c[0]).t;
+  $("main").textContent=c[1];$("subt").textContent="";
+  $("hint").hidden=false;$("judge").hidden=true;
+  $("mark").hidden=!flags.has(cid(c));tick();
+}
+function flip(){
+  if(flipped)return;flipped=true;
+  const c=deck[idx];
+  $("card").classList.add("back");$("tag").textContent="答え";
+  $("main").textContent=c[2];
+  $("subt").textContent=[c[3]?"よみ：" +c[3]:"",c[4]].filter(Boolean).join("　／　");
+  $("hint").hidden=true;$("judge").hidden=false;
+}
+function judge(good){
+  if(!flipped)return;
+  total+=Math.min((performance.now()-t0)/1000,CAP);
+  const id=cid(deck[idx]);
+  if(good){known++;flags.delete(id)}else flags.add(id);
+  saveF();idx++;idx<deck.length?render():finish();
+}
+function finish(){
+  clearInterval(tickId);
+  const n=deck.length,acc=known/n*100,avg=total/n,i=levelOf(acc,avg),L=LV[i];
+  show("result");
+  $("lvE").textContent=L.e;$("lvN").textContent=L.n;
+  $("sOk").textContent=known+" / "+n+" 問";$("sAcc").textContent=Math.round(acc)+"%";
+  $("sTime").textContent=fmtJ(total);$("sAvg").textContent=avg.toFixed(1)+"秒";
+  $("nextHint").textContent=nextHint(i,acc,avg);
+  $("smallNote").hidden=n>=10;
+  $("reviewBtn").hidden=flags.size===0;
+  const d=new Date();
+  hist.push({d:(d.getMonth()+1)+"/"+d.getDate(),e:L.e,l:L.n,ok:known,n,avg,r:reviewMode?1:0});saveH();
+}
+
+$("startBtn").onclick=startNormal;
+$("flagBtn").onclick=startReview;
+$("reviewBtn").onclick=startReview;
+$("againBtn").onclick=()=>show("start");
+$("clearBtn").onclick=()=>{if(flags.size&&confirm("印をすべて消しますか？")){flags.clear();saveF();refresh()}};
+$("card").onclick=flip;
+$("okBtn").onclick=()=>judge(true);
+$("ngBtn").onclick=()=>judge(false);
+document.addEventListener("keydown",e=>{
+  if($("study").hidden)return;
+  if((e.key===" "||e.key==="Enter")&&e.target.tagName!=="BUTTON"){e.preventDefault();flip()}
+  else if(e.key==="1")judge(false);else if(e.key==="2")judge(true);
+});
+buildStart();refresh();
+</script>
+</body>
+</html>
