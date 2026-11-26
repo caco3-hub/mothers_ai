@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お母さんの愛AI ドリル｜中学受験・定期テストの一問一答</title>
+<style>
+:root{--sea:#d6ecfa;--ink:#1d3557;--sun:#ffd23f;--stamp:#e63946;--mute:#52627a}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Hiragino Maru Gothic ProN","Zen Maru Gothic","BIZ UDPGothic","Yu Gothic","Meiryo",sans-serif;color:var(--ink);background-color:var(--sea);
+background-image:linear-gradient(rgba(29,53,87,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(29,53,87,.08) 1px,transparent 1px);background-size:32px 32px;min-height:100vh;padding:16px;line-height:1.6}
+main{max-width:640px;margin:0 auto}
+h1{font-size:1.5rem;margin:8px 0 4px;text-align:center}
+h1 span{display:inline-block;background:var(--sun);border:3px solid var(--ink);border-radius:14px;padding:2px 12px;box-shadow:0 4px 0 var(--ink)}
+.lead{text-align:center;margin:8px 0 16px;font-size:.95rem}
+.panel{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:16px;box-shadow:0 6px 0 var(--ink);margin-bottom:16px}
+fieldset{border:0;margin:0 0 8px;padding:0}
+legend{font-weight:700;margin-bottom:4px;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:block;padding:6px 14px;border:2px solid var(--ink);border-radius:999px;background:#fff;font-size:.92rem}
+.chips input:checked+span{background:var(--ink);color:#fff;font-weight:700}
+.chips input:focus-visible+span{outline:4px solid var(--stamp);outline-offset:2px}
+.list{display:grid;gap:14px}
+.quiz{display:block;text-decoration:none;color:inherit;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:14px 16px;box-shadow:0 5px 0 var(--ink)}
+.quiz:hover{background:#fffbea}
+.quiz:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.quiz:focus-visible{outline:4px solid var(--stamp);outline-offset:3px}
+.quiz h2{font-size:1.1rem;margin:4px 0}
+.quiz p{margin:0;font-size:.9rem;color:var(--mute)}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font-size:.78rem;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:0 10px;background:var(--sun)}
+.badge.l{background:var(--ink);color:#fff}
+.empty{text-align:center;color:var(--mute)}
+.links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 16px}
+.links a{display:inline-block;background:var(--stamp);color:#fff;font-weight:700;text-decoration:none;border:3px solid var(--ink);border-radius:14px;padding:6px 16px;box-shadow:0 4px 0 var(--ink)}
+.links a.sub{background:var(--sun);color:var(--ink)}
+.foot{font-size:.85rem;color:var(--mute)}
+.foot ul{margin:6px 0 0;padding-left:1.2em}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1><span>お母さんの愛AI ドリル</span></h1>
+<p class="lead">中学受験・定期テスト向けの一問一答集。すべて無料で使えます。</p>
+<div class="links" id="links"></div>
+
+<section class="panel">
+  <fieldset class="chips"><legend>① 学年をえらぶ</legend><span id="levelBox" style="display:contents"></span></fieldset>
+  <fieldset class="chips" id="subjectSet" style="margin-bottom:0" hidden><legend>② 教科をえらぶ</legend><span id="subjectBox" style="display:contents"></span></fieldset>
+</section>
+
+<section class="list" id="list"></section>
+<p class="empty" id="empty" aria-live="polite"></p>
+
+<section class="panel foot" style="margin-top:18px">
+  使うときのお願い
+  <ul>
+    <li>答えや解説は、AIの助けを借りて作っています。まちがいがあるかもしれません。<b>気になるところは、教科書や先生の説明で確認してください。</b></li>
+    <li>名前などを入力する場所はありません。印や記録は、この端末のブラウザの中だけに保存されます。</li>
+    <li>特定の塾・学校・出版社とは関係ありません。</li>
+  </ul>
+</section>
+</main>
+
+<script>
+// ===== 設定: 公開したら、ここにURLを入れてください =====
+const BASE="https://caco3-hub.github.io/mothers_ai/";  // 公開URLの先頭(最後は/)。ローカルで試すときは "" にすると相対リンクになります
+const NOTE_URL="";     // 例: https://note.com/ユーザー名
+const SUPPORT_URL="";  // 例: 応援・サポートのページ
+
+// ===== 教材の一覧。増やすときは、ここに1行足すだけ =====
+// path はこのページからの相対パス。fmt は形式のひとこと
+const QUIZ=[
+ {level:"小学生",subject:"社会",title:"幕末 一問一答",desc:"ペリー来航から江戸幕府の滅亡まで。年号も。",fmt:"フラッシュカード",n:65,path:"elementary/society/history/bakumatsu/"},
+ {level:"小学生",subject:"社会",title:"五街道クイズ",desc:"略図の①〜⑤から街道名を答える。入試の頻出問題つき。",fmt:"ノート記述",path:"elementary/society/history/gokaido/"},
+ {level:"小学生",subject:"社会",title:"江戸の文化クイズ",desc:"元禄文化と化政文化。絵・俳句・ことば。",fmt:"ノート記述",n:21,path:"elementary/society/history/edo-bunka/"},
+ {level:"小学生",subject:"社会",title:"県庁所在地クイズ（4択）",desc:"県名と県庁所在地名がちがう18道県。",fmt:"4択",n:18,path:"elementary/society/geography/kenchou-easy/"},
+ {level:"小学生",subject:"社会",title:"県庁所在地クイズ（ノート版）",desc:"漢字でノートに書いて、自分で答え合わせ。",fmt:"ノート記述",n:18,path:"elementary/society/geography/kenchou-note/"},
+ {level:"小学生",subject:"理科",title:"生命の誕生 一問一答",desc:"動物のふえ方、メダカ、ヒトの誕生。",fmt:"フラッシュカード",n:55,path:"elementary/science/life/birth/"},
+ {level:"小学生",subject:"国語",title:"気持ちを表す言葉",desc:"似た言葉を仲間ごとに。仲間カードと、仲間はずれ探し。",fmt:"フラッシュカード＋クイズ",n:61,path:"elementary/japanese/vocabulary/feelings/"},
+ {level:"小学生",subject:"国語",title:"慣用句マスター",desc:"250語。意味をおぼえるカードと、□に入る言葉クイズ。まちがえた問題は復習できる。",fmt:"フラッシュカード＋クイズ",n:250,path:"elementary/japanese/kanyouku/"},
+ {level:"中学生",subject:"理科",title:"元素記号 単語帳40",desc:"元素記号と名称を、どちらからでも。",fmt:"フラッシュカード",n:40,path:"junior/science/chemistry/element-symbols/"},
+ {level:"中学生",subject:"理科",title:"化学式 単語帳",desc:"名称と化学式、単体・化合物、分子かどうか。",fmt:"フラッシュカード",n:59,path:"junior/science/chemistry/chemical-formulas/"}
+];
+
+const $=id=>document.getElementById(id);
+const ALL="__all";
+const uniq=(k,src)=>[...new Set((src||QUIZ).map(q=>q[k]))];
+let LV="",SB=null;   // SB: null=まだ選んでいない / ALL=ぜんぶ / 教科名
+try{const s=JSON.parse(sessionStorage.getItem("drillSel")||"{}");LV=s.LV||"";SB=s.SB===undefined?null:s.SB;}catch(e){}
+if(!uniq("level").includes(LV)){LV="";SB=null;}
+function save(){try{sessionStorage.setItem("drillSel",JSON.stringify({LV:LV,SB:SB}));}catch(e){}}
+
+function chips(boxId,name,opts,cur,onPick){
+  $(boxId).innerHTML=opts.map(o=>'<label><input type="radio" name="'+name+'" value="'+o.v+'"'+(cur===o.v?' checked':'')+'><span>'+o.t+'</span></label>').join("");
+  document.querySelectorAll('input[name="'+name+'"]').forEach(i=>i.onchange=()=>onPick(i.value));
+}
+function drawSubjects(){
+  $("subjectSet").hidden=!LV;
+  if(!LV)return;
+  const subs=uniq("subject",QUIZ.filter(q=>q.level===LV));
+  if(SB!==null&&SB!==ALL&&!subs.includes(SB))SB=null;
+  chips("subjectBox","subject",[{v:ALL,t:"ぜんぶ"}].concat(subs.map(x=>({v:x,t:x}))),SB,v=>{SB=v;save();drawList();});
+}
+function drawList(){
+  const items=(LV&&SB!==null)?QUIZ.filter(q=>q.level===LV&&(SB===ALL||q.subject===SB)):[];
+  $("list").innerHTML=items.map(q=>
+    '<a class="quiz" href="'+BASE+q.path+'"><div class="badges"><span class="badge l">'+q.level+'</span><span class="badge">'+q.subject+'</span><span class="badge">'+q.fmt+'</span>'+(q.n?'<span class="badge">'+q.n+'問</span>':'')+'</div><h2>'+q.title+'</h2><p>'+q.desc+'</p></a>'
+  ).join("");
+  $("empty").textContent=!LV?"まず、学年をえらんでください。":SB===null?"つぎに、教科をえらんでください。":items.length?"":"この条件の教材は、まだありません。";
+  $("empty").hidden=!$("empty").textContent;
+}
+chips("levelBox","level",uniq("level").map(x=>({v:x,t:x})),LV,v=>{LV=v;SB=null;save();drawSubjects();drawList();});
+drawSubjects();
+const links=[];
+if(NOTE_URL)links.push('<a href="'+NOTE_URL+'">📖 noteを読む</a>');
+if(SUPPORT_URL)links.push('<a class="sub" href="'+SUPPORT_URL+'">☕ 応援する</a>');
+$("links").innerHTML=links.join("");$("links").hidden=!links.length;
+drawList();
+</script>
+</body>
+</html>

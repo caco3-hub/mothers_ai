@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>慣用句マスター | お母さんの愛AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef7f2;--ink:#23395b;--sub:#5d7290;--blue:#3a86ff;--sun:#ffb703;--ok:#2a9d6f;--ng:#e5484d;--card:#fff;--line:#d3e3da}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;font-weight:500;line-height:1.7;min-height:100vh}
+#app{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.5rem;font-weight:900;margin:8px 0 2px}
+h2{font-size:1.05rem;font-weight:900;margin:22px 0 8px}
+.lead{color:var(--sub);margin:0 0 8px;font-size:.92rem}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin-bottom:12px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1;min-width:120px}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;text-align:center;padding:10px 8px;border:2px solid var(--line);border-radius:14px;cursor:pointer;font-weight:700;background:#fff}
+.seg input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+select{width:100%;margin-top:10px;padding:10px;border:2px solid var(--line);border-radius:14px;font:inherit;background:#fff;color:var(--ink)}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:14px 16px;font:inherit;font-weight:900;font-size:1.05rem;cursor:pointer;color:#fff;background:var(--blue);margin-top:10px;box-shadow:0 4px 0 rgba(35,57,91,.25)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(35,57,91,.25)}
+.btn:focus-visible,.choice:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.btn.sun{background:var(--sun);color:var(--ink)}
+.btn.ok{background:var(--ok)}.btn.ng{background:var(--ng)}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:none}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--sun);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--sub);font-size:.88rem}
+.chip{display:inline-block;background:#e4efff;color:#2756b5;border-radius:20px;padding:1px 10px;font-size:.8rem;font-weight:700;margin-right:6px}
+.chip.mark{background:#ffe3e4;color:var(--ng)}
+.big{font-size:2rem;font-weight:900;text-align:center;margin:18px 0 10px;line-height:1.4}
+.meaning{text-align:center;font-size:1.1rem;min-height:3.4em;padding:8px;border-radius:14px;background:#fff8e1}
+.idiom{font-size:1.45rem;font-weight:900;padding:10px 14px;border-radius:14px;background:#fff;border:2px solid var(--line);margin:8px 0}
+.idiom small{display:block;font-size:.85rem;font-weight:500;color:var(--sub)}
+.idiom b{color:var(--ok);background:#dff5ea;border-radius:6px;padding:0 4px}
+.blank{display:inline-block;min-width:1.4em;text-align:center;border-bottom:3px solid var(--sun);color:var(--sun)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.choice{padding:14px;border:2px solid var(--line);border-radius:16px;background:#fff;font:inherit;font-weight:900;font-size:1.3rem;color:var(--ink);cursor:pointer}
+.choice.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.wrong{background:var(--ng);border-color:var(--ng);color:#fff}
+.verdict{text-align:center;font-weight:900;font-size:1.3rem;margin:10px 0 0}
+.score{font-size:3rem;font-weight:900;text-align:center;line-height:1.2}
+.level{text-align:center;font-size:1.3rem;font-weight:900;background:var(--sun);border-radius:16px;padding:6px;margin:10px 0}
+.err{background:#ffe3e4;border:2px solid var(--ng);border-radius:16px;padding:14px}
+.link{background:none;border:0;color:var(--sub);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"><p class="lead">読み込み中…</p></div>
+<script>
+const DATA_URL = 'goku.json';           // 語句データ(同じフォルダ。GitHub Pagesは大文字小文字を区別します)
+const STORE_KEY = 'kanyouku-master-v1';
+const $app = document.getElementById('app');
+
+let ALL = [];
+let store = loadStore();
+let opt = { scope: 'all', cat: '', order: 'seq' };
+let run = null; // 実行中のセッション
+
+/* ---------- 保存 ---------- */
+function loadStore(){
+  const base = { wrong: [], wrongSub: [], use: {} };
+  try { return Object.assign(base, JSON.parse(localStorage.getItem(STORE_KEY) || '{}')); }
+  catch(e){ return base; }
+}
+function saveStore(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch(e){} }
+function addTo(list, v){ if(!list.includes(v)) list.push(v); }
+function removeFrom(list, v){ const i = list.indexOf(v); if(i>=0) list.splice(i,1); }
+
+/* ---------- ユーティリティ ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const subKey = it => it.cat + '|' + it.sub;
+
+function normalize(raw){
+  const arr = Array.isArray(raw) ? raw : (raw.data || raw.items || Object.values(raw));
+  return arr.map(r => ({
+    id: Number(r['番号']), word: r['慣用句'], meaning: r['意味'],
+    cat: r['カテゴリ'] || 'その他', sub: r['サブカテゴリ'] || null
+  })).sort((a,b) => a.id - b.id);
+}
+function categories(){ return [...new Set(ALL.map(x => x.cat))]; }
+function pool(){ return opt.scope === 'cat' ? ALL.filter(x => x.cat === opt.cat) : ALL; }
+
+/* □クイズ用グループ: サブカテゴリが慣用句に含まれ、3つ以上あるもの */
+function buildGroups(items){
+  const m = new Map();
+  items.forEach(it => {
+    if(!it.sub || !it.word.includes(it.sub)) return;
+    const k = subKey(it);
+    if(!m.has(k)) m.set(k, { key:k, cat:it.cat, sub:it.sub, items:[] });
+    m.get(k).items.push(it);
+  });
+  return [...m.values()].filter(g => g.items.length >= 3);
+}
+
+/* ---------- ホーム ---------- */
+function home(){
+  run = null;
+  const cats = categories();
+  if(!opt.cat) opt.cat = cats[0];
+  const groups = buildGroups(pool());
+  $app.innerHTML = `
+    <h1>慣用句マスター</h1>
+    <p class="lead">全${ALL.length}語。カードでおぼえて、□クイズで実力アップ。</p>
+
+    <h2>範囲</h2>
+    <div class="panel">
+      <div class="seg">
+        <label><input type="radio" name="scope" value="all" ${opt.scope==='all'?'checked':''}><span>全部</span></label>
+        <label><input type="radio" name="scope" value="cat" ${opt.scope==='cat'?'checked':''}><span>カテゴリ</span></label>
+      </div>
+      <select id="cat" ${opt.scope==='cat'?'':'hidden'} aria-label="カテゴリ">
+        ${cats.map(c => `<option value="${esc(c)}" ${c===opt.cat?'selected':''}>${esc(c)}(${ALL.filter(x=>x.cat===c).length}語)</option>`).join('')}
+      </select>
+    </div>
+
+    <h2>順番</h2>
+    <div class="panel"><div class="seg">
+      <label><input type="radio" name="order" value="seq" ${opt.order==='seq'?'checked':''}><span>順番通り</span></label>
+      <label><input type="radio" name="order" value="rnd" ${opt.order==='rnd'?'checked':''}><span>ランダム</span></label>
+    </div></div>
+
+    <h2>はじめる</h2>
+    <button class="btn" id="goCard">意味をおぼえるカード<br><small>${pool().length}語</small></button>
+    <button class="btn sun" id="goQuiz" ${groups.length?'':'disabled'}>□に入る言葉クイズ<br><small>${groups.length}問(サブカテゴリ3語以上)</small></button>
+
+    <h2>まちがえた問題を復習</h2>
+    <div class="row">
+      <button class="btn ghost" id="revCard" ${store.wrong.length?'':'disabled'}>カード ${store.wrong.length}語</button>
+      <button class="btn ghost" id="revQuiz" ${store.wrongSub.length?'':'disabled'}>□クイズ ${store.wrongSub.length}問</button>
+    </div>
+    <p style="text-align:center"><button class="link" id="reset">まちがいの記録を消す</button></p>`;
+
+  document.querySelectorAll('input[name=scope]').forEach(e => e.onchange = () => { opt.scope = e.value; home(); });
+  document.querySelectorAll('input[name=order]').forEach(e => e.onchange = () => { opt.order = e.value; });
+  document.getElementById('cat').onchange = e => { opt.cat = e.target.value; home(); };
+  document.getElementById('goCard').onclick = () => startCards(false);
+  document.getElementById('goQuiz').onclick = () => startQuiz(false);
+  document.getElementById('revCard').onclick = () => startCards(true);
+  document.getElementById('revQuiz').onclick = () => startQuiz(true);
+  document.getElementById('reset').onclick = () => {
+    if(confirm('まちがいの記録をすべて消しますか?')){ store.wrong=[]; store.wrongSub=[]; saveStore(); home(); }
+  };
+}
+
+/* ---------- 共通: 進行 ---------- */
+function newRun(kind, queue, review){
+  run = { kind, review, queue, i:0, right:0, wrong:0, t0:Date.now(), wrongList:[], answered:false };
+}
+function header(){
+  const pct = Math.round(run.i / run.queue.length * 100);
+  return `<div class="meta"><span>${run.review?'復習 ':''}${run.i+1} / ${run.queue.length}</span>
+          <button class="link" id="quit">やめる</button></div>
+          <div class="bar"><i style="width:${pct}%"></i></div>`;
+}
+function bindQuit(){ const q = document.getElementById('quit'); if(q) q.onclick = () => { if(confirm('ホームにもどりますか?')) home(); }; }
+
+/* ---------- カード ---------- */
+function startCards(review){
+  let list = review ? ALL.filter(x => store.wrong.includes(x.id)) : pool();
+  if(!list.length) return;
+  if(opt.order === 'rnd') list = shuffle(list);
+  newRun('card', list, review);
+  showCard();
+}
+function showCard(revealed){
+  const it = run.queue[run.i];
+  const marked = store.wrong.includes(it.id);
+  $app.innerHTML = `${header()}
+    <div class="panel">
+      <div><span class="chip">${esc(it.cat)}</span>${it.sub?`<span class="chip">${esc(it.sub)}</span>`:''}${marked?'<span class="chip mark">まちがえ印</span>':''}</div>
+      <div class="big">${esc(it.word)}</div>
+      <div class="meaning" aria-live="polite">${revealed ? esc(it.meaning) : ''}</div>
+    </div>
+    ${revealed ? `<div class="row">
+        <button class="btn ng" id="bad">まちがえた</button>
+        <button class="btn ok" id="good">わかった</button></div>`
+      : `<button class="btn" id="show">意味を見る</button>`}`;
+  bindQuit();
+  if(!revealed){ document.getElementById('show').onclick = () => showCard(true); return; }
+  document.getElementById('good').onclick = () => { run.right++; removeFrom(store.wrong, it.id); saveStore(); nextCard(); };
+  document.getElementById('bad').onclick = () => { run.wrong++; addTo(store.wrong, it.id); run.wrongList.push(it.id); saveStore(); nextCard(); };
+}
+function nextCard(){ run.i++; run.i >= run.queue.length ? result() : showCard(); }
+
+/* ---------- □クイズ ---------- */
+function startQuiz(review){
+  let groups = buildGroups(review ? ALL : pool());
+  if(review) groups = groups.filter(g => store.wrongSub.includes(g.key));
+  if(!groups.length) return;
+  groups = opt.order === 'rnd' ? shuffle(groups) : groups.sort((a,b) => a.items[0].id - b.items[0].id);
+  newRun('quiz', groups, review);
+  showQuiz();
+}
+/* 出題回数が少ない慣用句を優先(同数ならランダム)→ 同じ慣用句に偏らない */
+function pickThree(g){
+  const ranked = g.items.map(it => ({ it, u: store.use[it.id] || 0, r: Math.random() }))
+    .sort((a,b) => a.u - b.u || a.r - b.r).slice(0,3).map(x => x.it);
+  ranked.forEach(it => store.use[it.id] = (store.use[it.id]||0) + 1);
+  saveStore();
+  return ranked;
+}
+function makeChoices(g){
+  const allSubs = buildGroups(ALL);
+  const same = shuffle(allSubs.filter(x => x.sub !== g.sub && x.cat === g.cat)).map(x => x.sub);
+  const other = shuffle(allSubs.filter(x => x.sub !== g.sub && x.cat !== g.cat)).map(x => x.sub);
+  const dist = [...new Set([...same, ...other])].slice(0,3);
+  return shuffle([g.sub, ...dist]);
+}
+function showQuiz(){
+  const g = run.queue[run.i];
+  run.answered = false;
+  run.three = pickThree(g);
+  run.choices = makeChoices(g);
+  drawQuiz(g);
+}
+function drawQuiz(g, picked){
+  const done = picked !== undefined;
+  const ok = done && picked === g.sub;
+  const idioms = run.three.map(it => {
+    const body = done
+      ? esc(it.word).split(esc(g.sub)).join(`<b>${esc(g.sub)}</b>`)
+      : esc(it.word).split(esc(g.sub)).join('<span class="blank">□</span>');
+    return `<div class="idiom">${body}${done ? `<small>${esc(it.meaning)}</small>` : ''}</div>`;
+  }).join('');
+  $app.innerHTML = `${header()}
+    <div class="panel">
+      <p style="margin:0"><span class="chip">${esc(g.cat)}</span> 3つの□に共通して入る言葉は?</p>
+      ${idioms}
+      ${done ? '' : '<button class="link" id="swap">別の3つにかえる</button>'}
+    </div>
+    <div class="choices">${run.choices.map(c => {
+      let cls = 'choice';
+      if(done){ if(c === g.sub) cls += ' right'; else if(c === picked) cls += ' wrong'; }
+      return `<button class="${cls}" data-v="${esc(c)}" ${done?'disabled':''}>${esc(c)}</button>`;
+    }).join('')}</div>
+    ${done ? `<p class="verdict" style="color:${ok?'var(--ok)':'var(--ng)'}">${ok?'せいかい!':'ざんねん… 答えは「'+esc(g.sub)+'」'}</p>
+      <button class="btn" id="next">${run.i+1 >= run.queue.length ? '結果を見る' : 'つぎへ'}</button>` : ''}`;
+  bindQuit();
+  if(done){ document.getElementById('next').onclick = () => { run.i++; run.i >= run.queue.length ? result() : showQuiz(); }; return; }
+  document.getElementById('swap').onclick = () => { run.three = pickThree(g); drawQuiz(g); };
+  document.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+    const v = b.dataset.v;
+    if(v === g.sub){ run.right++; removeFrom(store.wrongSub, g.key); }
+    else { run.wrong++; addTo(store.wrongSub, g.key); run.wrongList.push(g.key); }
+    saveStore();
+    drawQuiz(g, v);
+  });
+}
+
+/* ---------- 結果 ---------- */
+function levelOf(rate){
+  if(rate >= 95) return '達人';
+  if(rate >= 80) return '名人';
+  if(rate >= 60) return 'ものしり';
+  if(rate >= 40) return '修行中';
+  return '見習い';
+}
+function result(){
+  const n = run.queue.length, sec = Math.round((Date.now() - run.t0) / 1000);
+  const rate = Math.round(run.right / n * 100);
+  const unit = run.kind === 'card' ? '語' : '問';
+  const remain = run.kind === 'card' ? store.wrong.length : store.wrongSub.length;
+  $app.innerHTML = `
+    <h1 style="text-align:center">おつかれさま!</h1>
+    <div class="panel">
+      <div class="score">${run.right} / ${n}</div>
+      <p class="lead" style="text-align:center">正答率 ${rate}%・${Math.floor(sec/60)}分${sec%60}秒</p>
+      <div class="level">レベル:${levelOf(rate)}</div>
+    </div>
+    <button class="btn sun" id="again">もう一度</button>
+    <button class="btn" id="rev" ${remain?'':'disabled'}>まちがえた${unit}を復習(${remain}${unit})</button>
+    <button class="btn ghost" id="top">ホームへ</button>`;
+  const kind = run.kind;
+  document.getElementById('again').onclick = () => kind === 'card' ? startCards(false) : startQuiz(false);
+  document.getElementById('rev').onclick = () => kind === 'card' ? startCards(true) : startQuiz(true);
+  document.getElementById('top').onclick = home;
+}
+
+/* ---------- 起動 ---------- */
+fetch(DATA_URL)
+  .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status + '(ファイルが見つかりません)'); return r.text(); })
+  .then(t => {
+    let d;
+    try { d = JSON.parse(t.replace(/^\uFEFF/, '')); }
+    catch(err){ throw new Error('JSONの書き方にまちがいがあります: ' + err.message); }
+    ALL = normalize(d); home();
+  })
+  .catch(e => {
+    $app.innerHTML = `<div class="err"><b>${esc(DATA_URL)} を読み込めませんでした。</b><br>
+      ・index.html と同じフォルダに置いてありますか?(ファイル名の大文字・小文字も確認)<br>
+      ・index.html をダブルクリックで開いていませんか?ローカルでは Live Server などで開いてください。<br>
+      <hr><b>くわしい原因:</b> ${esc(e.message)}</div>`;
+  });
+</script>
+</body>
+</html>
