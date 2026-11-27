@@ -50,7 +50,8 @@ legend{font-weight:700;margin-bottom:4px;font-size:.9rem}
 
 <section class="panel">
   <fieldset class="chips"><legend>① 学年をえらぶ</legend><span id="levelBox" style="display:contents"></span></fieldset>
-  <fieldset class="chips" id="subjectSet" style="margin-bottom:0" hidden><legend>② 教科をえらぶ</legend><span id="subjectBox" style="display:contents"></span></fieldset>
+  <fieldset class="chips" id="subjectSet" hidden><legend>② 教科をえらぶ</legend><span id="subjectBox" style="display:contents"></span></fieldset>
+  <fieldset class="chips" id="fieldSet" style="margin-bottom:0" hidden><legend>③ 分野をえらぶ</legend><span id="fieldBox" style="display:contents"></span></fieldset>
 </section>
 
 <section class="list" id="list"></section>
@@ -75,30 +76,37 @@ const SUPPORT_URL="";  // 例: 応援・サポートのページ
 // ===== 教材の一覧。増やすときは、ここに1行足すだけ =====
 // path はこのページからの相対パス。fmt は形式のひとこと
 const QUIZ=[
- {level:"小学生",subject:"社会",title:"江戸時代中期（政治・学問） 一問一答",desc:"綱吉と白石の政治から、学問の発展まで。",fmt:"フラッシュカード",path:"elementary/society/history/edo2/"},
- {level:"小学生",subject:"社会",title:"江戸時代中期（産業・文化） 一問一答",desc:"都市と交通の発達、産業、文化。航路の地図つき。",fmt:"フラッシュカード",path:"elementary/society/history/edo3/"},
- {level:"小学生",subject:"社会",title:"幕末 一問一答",desc:"ペリー来航から江戸幕府の滅亡まで。年号も。",fmt:"フラッシュカード",n:65,path:"elementary/society/history/bakumatsu/"},
- {level:"小学生",subject:"社会",title:"五街道クイズ",desc:"略図の①〜⑤から街道名を答える。入試の頻出問題つき。",fmt:"ノート記述",path:"elementary/society/history/gokaidou/"},
- {level:"小学生",subject:"社会",title:"江戸の文化クイズ",desc:"元禄文化と化政文化。絵・俳句・ことば。",fmt:"ノート記述",n:21,path:"elementary/society/history/edo-bunka/"},
- {level:"小学生",subject:"社会",title:"県庁所在地クイズ（4択）",desc:"県名と県庁所在地名がちがう18道県。",fmt:"4択",n:18,path:"elementary/society/geography/kenchou-easy/"},
- {level:"小学生",subject:"社会",title:"県庁所在地クイズ（ノート版）",desc:"漢字でノートに書いて、自分で答え合わせ。",fmt:"ノート記述",n:18,path:"elementary/society/geography/kenchou/"},
- {level:"小学生",subject:"理科",title:"火山と地震 一問一答",desc:"火山の噴火、地震のゆれ。図を見て答える問題つき。",fmt:"フラッシュカード",path:"elementary/science/volcano_earthquake/"},
- {level:"小学生",subject:"理科",title:"光と音 一問一答",desc:"光の性質から音の伝わり方まで。",fmt:"フラッシュカード",path:"elementary/science/light-sound/"},
- {level:"小学生",subject:"理科",title:"生命の誕生 一問一答",desc:"動物のふえ方、メダカ、ヒトの誕生。",fmt:"フラッシュカード",n:55,path:"elementary/science/life/"},
+ {level:"小学生",subject:"社会",field:"歴史",title:"江戸時代中期（政治・学問） 一問一答",desc:"綱吉と白石の政治から、学問の発展まで。",fmt:"フラッシュカード",path:"elementary/society/history/edo2/"},
+ {level:"小学生",subject:"社会",field:"歴史",title:"江戸時代中期（産業・文化） 一問一答",desc:"都市と交通の発達、産業、文化。航路の地図つき。",fmt:"フラッシュカード",path:"elementary/society/history/edo3/"},
+ {level:"小学生",subject:"社会",field:"歴史",title:"幕末 一問一答",desc:"ペリー来航から江戸幕府の滅亡まで。年号も。",fmt:"フラッシュカード",n:65,path:"elementary/society/history/bakumatsu/"},
+ {level:"小学生",subject:"社会",field:"歴史",title:"五街道クイズ",desc:"略図の①〜⑤から街道名を答える。入試の頻出問題つき。",fmt:"ノート記述",path:"elementary/society/history/gokaidou/"},
+ {level:"小学生",subject:"社会",field:"歴史",title:"江戸の文化クイズ",desc:"元禄文化と化政文化。絵・俳句・ことば。",fmt:"ノート記述",n:21,path:"elementary/society/history/edo-bunka/"},
+ {level:"小学生",subject:"社会",field:"地理",title:"日本の世界遺産",desc:"地図の番号と名前を結びつけよう。都道府県・登録年も。",fmt:"フラッシュカード",path:"elementary/society/geography/japan_world_heritage/"},
+ {level:"小学生",subject:"社会",field:"地理",title:"県庁所在地クイズ（4択）",desc:"県名と県庁所在地名がちがう18道県。",fmt:"4択",n:18,path:"elementary/society/geography/kenchou-easy/"},
+ {level:"小学生",subject:"社会",field:"地理",title:"県庁所在地クイズ（ノート版）",desc:"漢字でノートに書いて、自分で答え合わせ。",fmt:"ノート記述",n:18,path:"elementary/society/geography/kenchou/"},
+ {level:"小学生",subject:"理科",field:"地学",title:"火山と地震 一問一答",desc:"火山の噴火、地震のゆれ。図を見て答える問題つき。",fmt:"フラッシュカード",path:"elementary/science/volcano_earthquake/"},
+ {level:"小学生",subject:"理科",field:"物理",title:"光と音 一問一答",desc:"光の性質から音の伝わり方まで。",fmt:"フラッシュカード",path:"elementary/science/light-sound/"},
+ {level:"小学生",subject:"理科",field:"生物",title:"生命の誕生 一問一答",desc:"動物のふえ方、メダカ、ヒトの誕生。",fmt:"フラッシュカード",n:55,path:"elementary/science/life/"},
  {level:"小学生",subject:"国語",title:"気持ちを表す言葉",desc:"似た言葉を仲間ごとに。仲間カードと、仲間はずれ探し。",fmt:"フラッシュカード＋クイズ",n:61,path:"elementary/japanese/ruigigo/"},
  {level:"小学生",subject:"国語",title:"慣用句マスター",desc:"250語。意味をおぼえるカードと、□に入る言葉クイズ。まちがえた問題は復習できる。",fmt:"フラッシュカード＋クイズ",n:250,path:"elementary/japanese/kanyouku/"},
  {level:"小学生",subject:"国語",title:"ことわざマスター",desc:"120個。意味をおぼえるカードと、□に入る言葉クイズ。まちがえた問題は復習できる。",fmt:"フラッシュカード＋クイズ",n:120,path:"elementary/japanese/kotowaza/"},
- {level:"中学生",subject:"理科",title:"元素記号 単語帳40",desc:"元素記号と名称を、どちらからでも。",fmt:"フラッシュカード",n:40,path:"J2/science/genso-kigo/"},
- {level:"中学生",subject:"理科",title:"化学式 単語帳",desc:"名称と化学式、単体・化合物、分子かどうか。",fmt:"フラッシュカード",n:59,path:"J2/science/kagakusshiki/"}
+ {level:"中学生",subject:"理科",field:"化学",title:"元素記号 単語帳40",desc:"元素記号と名称を、どちらからでも。",fmt:"フラッシュカード",n:40,path:"J2/science/genso-kigo/"},
+ {level:"中学生",subject:"理科",field:"化学",title:"化学式 単語帳",desc:"名称と化学式、単体・化合物、分子かどうか。",fmt:"フラッシュカード",n:59,path:"J2/science/kagakusshiki/"}
 ];
 
 const $=id=>document.getElementById(id);
 const ALL="__all";
+// 分野つきで絞りこむ教科(学年|教科)。分野は、教材がまだなくても表示されます
+const FIELDS={
+  "小学生|社会":["地理","歴史","公民"],
+  "小学生|理科":["生物","地学","化学","天体","物理"]
+};
 const uniq=(k,src)=>[...new Set((src||QUIZ).map(q=>q[k]))];
-let LV="",SB=null;   // SB: null=まだ選んでいない / ALL=ぜんぶ / 教科名
-try{const s=JSON.parse(sessionStorage.getItem("drillSel")||"{}");LV=s.LV||"";SB=s.SB===undefined?null:s.SB;}catch(e){}
-if(!uniq("level").includes(LV)){LV="";SB=null;}
-function save(){try{sessionStorage.setItem("drillSel",JSON.stringify({LV:LV,SB:SB}));}catch(e){}}
+let LV="",SB=null,FD=null;   // SB/FD: null=まだ選んでいない / ALL=ぜんぶ
+try{const s=JSON.parse(sessionStorage.getItem("drillSel")||"{}");LV=s.LV||"";SB=s.SB===undefined?null:s.SB;FD=s.FD===undefined?null:s.FD;}catch(e){}
+if(!uniq("level").includes(LV)){LV="";SB=null;FD=null;}
+function save(){try{sessionStorage.setItem("drillSel",JSON.stringify({LV:LV,SB:SB,FD:FD}));}catch(e){}}
+const fieldsOf=()=>(LV&&SB!==null&&SB!==ALL)?(FIELDS[LV+"|"+SB]||null):null;
 
 function chips(boxId,name,opts,cur,onPick){
   $(boxId).innerHTML=opts.map(o=>'<label><input type="radio" name="'+name+'" value="'+o.v+'"'+(cur===o.v?' checked':'')+'><span>'+o.t+'</span></label>').join("");
@@ -108,19 +116,30 @@ function drawSubjects(){
   $("subjectSet").hidden=!LV;
   if(!LV)return;
   const subs=uniq("subject",QUIZ.filter(q=>q.level===LV));
-  if(SB!==null&&SB!==ALL&&!subs.includes(SB))SB=null;
-  chips("subjectBox","subject",[{v:ALL,t:"ぜんぶ"}].concat(subs.map(x=>({v:x,t:x}))),SB,v=>{SB=v;save();drawList();});
+  if(SB!==null&&SB!==ALL&&!subs.includes(SB)){SB=null;FD=null;}
+  chips("subjectBox","subject",[{v:ALL,t:"ぜんぶ"}].concat(subs.map(x=>({v:x,t:x}))),SB,v=>{SB=v;FD=null;save();drawFields();drawList();});
+}
+function drawFields(){
+  const fs=fieldsOf();
+  $("fieldSet").hidden=!fs;
+  if(!fs){FD=null;return;}
+  if(FD!==null&&FD!==ALL&&!fs.includes(FD))FD=null;
+  const cnt=f=>QUIZ.filter(q=>q.level===LV&&q.subject===SB&&q.field===f).length;
+  chips("fieldBox","field",[{v:ALL,t:"ぜんぶ"}].concat(fs.map(f=>({v:f,t:f+"（"+cnt(f)+"）"}))),FD,v=>{FD=v;save();drawList();});
 }
 function drawList(){
-  const items=(LV&&SB!==null)?QUIZ.filter(q=>q.level===LV&&(SB===ALL||q.subject===SB)):[];
+  const needField=!!fieldsOf();
+  const ready=LV&&SB!==null&&(!needField||FD!==null);
+  const items=ready?QUIZ.filter(q=>q.level===LV&&(SB===ALL||q.subject===SB)&&(!needField||FD===ALL||q.field===FD)):[];
   $("list").innerHTML=items.map(q=>
-    '<a class="quiz" href="'+BASE+q.path+'"><div class="badges"><span class="badge l">'+q.level+'</span><span class="badge">'+q.subject+'</span><span class="badge">'+q.fmt+'</span>'+(q.n?'<span class="badge">'+q.n+'問</span>':'')+'</div><h2>'+q.title+'</h2><p>'+q.desc+'</p></a>'
+    '<a class="quiz" href="'+BASE+q.path+'"><div class="badges"><span class="badge l">'+q.level+'</span><span class="badge">'+q.subject+'</span>'+(q.field?'<span class="badge">'+q.field+'</span>':'')+'<span class="badge">'+q.fmt+'</span>'+(q.n?'<span class="badge">'+q.n+'問</span>':'')+'</div><h2>'+q.title+'</h2><p>'+q.desc+'</p></a>'
   ).join("");
-  $("empty").textContent=!LV?"まず、学年をえらんでください。":SB===null?"つぎに、教科をえらんでください。":items.length?"":"この条件の教材は、まだありません。";
+  $("empty").textContent=!LV?"まず、学年をえらんでください。":SB===null?"つぎに、教科をえらんでください。":(needField&&FD===null)?"つぎに、分野をえらんでください。":items.length?"":"この条件の教材は、まだありません。";
   $("empty").hidden=!$("empty").textContent;
 }
-chips("levelBox","level",uniq("level").map(x=>({v:x,t:x})),LV,v=>{LV=v;SB=null;save();drawSubjects();drawList();});
+chips("levelBox","level",uniq("level").map(x=>({v:x,t:x})),LV,v=>{LV=v;SB=null;FD=null;save();drawSubjects();drawFields();drawList();});
 drawSubjects();
+drawFields();
 const links=[];
 if(NOTE_URL)links.push('<a href="'+NOTE_URL+'">📖 noteを読む</a>');
 if(SUPPORT_URL)links.push('<a class="sub" href="'+SUPPORT_URL+'">☕ 応援する</a>');
