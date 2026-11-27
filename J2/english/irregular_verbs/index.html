@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>不規則動詞 フラッシュカード | お母さんの愛AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef7f2;--ink:#23395b;--sub:#5d7290;--blue:#3a86ff;--sun:#ffb703;--ok:#2a9d6f;--ng:#e5484d;--card:#fff;--line:#d3e3da}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;font-weight:500;line-height:1.7;min-height:100vh}
+#app{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.5rem;font-weight:900;margin:8px 0 2px}
+h2{font-size:1.05rem;font-weight:900;margin:22px 0 8px}
+.lead{color:var(--sub);margin:0 0 8px;font-size:.92rem}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin-bottom:12px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1;min-width:120px}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;text-align:center;padding:10px 8px;border:2px solid var(--line);border-radius:14px;cursor:pointer;font-weight:700;background:#fff}
+.seg input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+select{width:100%;margin-top:10px;padding:10px;border:2px solid var(--line);border-radius:14px;font:inherit;background:#fff;color:var(--ink)}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:14px 16px;font:inherit;font-weight:900;font-size:1.05rem;cursor:pointer;color:#fff;background:var(--blue);margin-top:10px;box-shadow:0 4px 0 rgba(35,57,91,.25)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(35,57,91,.25)}
+.btn:focus-visible,.choice:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.btn.sun{background:var(--sun);color:var(--ink)}
+.btn.ok{background:var(--ok)}.btn.ng{background:var(--ng)}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:none}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--sun);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--sub);font-size:.88rem}
+.chip{display:inline-block;background:#e4efff;color:#2756b5;border-radius:20px;padding:1px 10px;font-size:.8rem;font-weight:700;margin-right:6px}
+.chip.mark{background:#ffe3e4;color:var(--ng)}
+.big{font-size:2rem;font-weight:900;text-align:center;margin:18px 0 10px;line-height:1.4}
+.meaning{text-align:center;font-size:1.1rem;min-height:3.4em;padding:8px;border-radius:14px;background:#fff8e1}
+.idiom{font-size:1.45rem;font-weight:900;padding:10px 14px;border-radius:14px;background:#fff;border:2px solid var(--line);margin:8px 0}
+.idiom small{display:block;font-size:.85rem;font-weight:500;color:var(--sub)}
+.idiom b{color:var(--ok);background:#dff5ea;border-radius:6px;padding:0 4px}
+.blank{display:inline-block;min-width:1.4em;text-align:center;border-bottom:3px solid var(--sun);color:var(--sun)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.choice{padding:14px;border:2px solid var(--line);border-radius:16px;background:#fff;font:inherit;font-weight:900;font-size:1.3rem;color:var(--ink);cursor:pointer}
+.choice.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.wrong{background:var(--ng);border-color:var(--ng);color:#fff}
+.verdict{text-align:center;font-weight:900;font-size:1.3rem;margin:10px 0 0}
+.score{font-size:3rem;font-weight:900;text-align:center;line-height:1.2}
+.level{text-align:center;font-size:1.3rem;font-weight:900;background:var(--sun);border-radius:16px;padding:6px;margin:10px 0}
+.err{background:#ffe3e4;border:2px solid var(--ng);border-radius:16px;padding:14px}
+.link{background:none;border:0;color:var(--sub);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.figure{margin:10px 0;text-align:center}
+.figure img{max-width:100%;max-height:280px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:zoom-in}
+.figure small{display:block;color:var(--sub);font-size:.8rem}
+.q{font-size:1.2rem;font-weight:700;margin:12px 0}
+.answer{text-align:center;font-size:1.5rem;font-weight:900;min-height:3.4em;padding:10px;border-radius:14px;background:#fff8e1}
+.zoom{position:fixed;inset:0;background:rgba(35,57,91,.85);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10;cursor:zoom-out}
+.zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:12px}
+.row{flex-wrap:wrap}.row>*{min-width:140px}
+.face{display:block;width:100%;border:3px solid var(--line);border-radius:22px;padding:20px 12px;margin:12px 0;font:inherit;color:var(--ink);cursor:pointer;text-align:center;min-height:170px;background:#fff8e1;box-shadow:0 5px 0 rgba(35,57,91,.18)}
+.face:active{transform:translateY(2px)}
+.face:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.face .lab{display:block;font-size:.9rem;font-weight:700;color:var(--sub)}
+.face .txt{display:block;font-size:2.3rem;font-weight:900;line-height:1.3;margin:12px 0;word-break:break-word}
+.face .txt.jp{font-size:1.6rem}
+.face .tap{display:block;font-size:.85rem;color:var(--sub)}
+.st0{background:#fff8e1}.st1{background:#e4efff}.st2{background:#dff5ea}.st3{background:#ffe9d6}.st4{background:#f1e4ff}
+.forms{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 10px}
+.forms div{border:2px solid var(--line);border-radius:12px;background:#fff;text-align:center;padding:4px 2px;font-size:.78rem;color:var(--sub);min-height:3.6em;word-break:break-word}
+.forms div b{display:block;font-size:.98rem;color:var(--ink)}
+.forms div.on{border-color:var(--blue)}
+.forms.two{grid-template-columns:repeat(2,1fr)}
+.face .sub{display:block;font-size:1.15rem;font-weight:700;color:var(--sub)}
+</style>
+</head>
+<body>
+<div id="app"><p class="lead">読み込み中…</p></div>
+<script>
+const DATA_URL = 'irregular_verbs.json';   // 同じフォルダ(GitHub Pagesは大文字小文字を区別します)
+const STORE_KEY = 'irregular-verbs-v1';
+const $app = document.getElementById('app');
+
+// タップで切りかわる順番: 意味 → 原形 → 過去形 → 過去分詞 → ing形 → 意味…
+const STAGES = [
+  { key: 'meaning',         label: '意味' },
+  { key: 'present',         label: '原形' },
+  { key: 'past',            label: '過去形' },
+  { key: 'past_participle', label: '過去分詞形' },
+  { key: 'ing',             label: 'ing形' }
+];
+
+// テストでは、日本語の意味だけを見せ、タップで答え(過去形・過去分詞形)を見せる
+const M = { key: 'meaning', label: '意味' }, P = { key: 'past', label: '過去形' }, PP = { key: 'past_participle', label: '過去分詞形' };
+const MODES = {
+  all:  { name: '4つの形',            stages: STAGES,        test: false },
+  past: { name: '過去形',              stages: [M, P],        test: true },
+  part: { name: '過去分詞形',          stages: [M, PP],       test: true },
+  pp:   { name: '過去形・過去分詞形',  stages: [M, P, PP],    test: true }
+};
+const MODE_ORDER = ['all', 'past', 'part', 'pp'];
+
+let ALL = [];
+let store = loadStore();
+let opt = { scope: 'all', cat: '', order: 'seq' };
+let run = null;
+
+/* ---------- 保存 ---------- */
+function loadStore(){
+  const base = { wrong: [], wrongPP: [], wrongPast: [], wrongPart: [] };
+  try { return Object.assign(base, JSON.parse(localStorage.getItem(STORE_KEY) || '{}')); }
+  catch(e){ return base; }
+}
+const wrongOf = mode => ({ all: store.wrong, pp: store.wrongPP, past: store.wrongPast, part: store.wrongPart })[mode];
+function saveStore(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch(e){} }
+function addTo(list, v){ if(!list.includes(v)) list.push(v); }
+function removeFrom(list, v){ const i = list.indexOf(v); if(i>=0) list.splice(i,1); }
+
+/* ---------- ユーティリティ ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+/* [{category, verbs:[…]}, …] を基本に、{categories:[…]} や、動詞だけの配列(categoryつき)も受けつける */
+function normalize(raw){
+  let groups = Array.isArray(raw) ? raw : (raw.categories || raw.data || raw.items || Object.values(raw));
+  const out = [];
+  groups.forEach(g => {
+    if(g && Array.isArray(g.verbs)){
+      g.verbs.forEach(v => out.push(make(v, g.category)));
+    } else if(g && g.present){
+      out.push(make(g, g.category));
+    }
+  });
+  return out.filter(v => v.present);
+}
+function make(v, cat){
+  return {
+    key: [v.present, v.meaning].join('|'),
+    cat: cat || 'その他',
+    meaning: v.meaning || '', present: v.present || '', past: v.past || '',
+    past_participle: v.past_participle || '', ing: v.ing || ''
+  };
+}
+function cats(){ return [...new Set(ALL.map(x => x.cat))]; }
+function pool(){ return opt.scope === 'cat' ? ALL.filter(x => x.cat === opt.cat) : ALL; }
+
+/* ---------- ホーム ---------- */
+function home(){
+  run = null;
+  const cs = cats();
+  if(!cs.includes(opt.cat)) opt.cat = cs[0];
+  $app.innerHTML = `
+    <h1>不規則動詞 フラッシュカード</h1>
+    <p class="lead">全${ALL.length}語。カードをタップして、形の変化を確かめよう。</p>
+
+    <h2>範囲</h2>
+    <div class="panel">
+      <div class="seg">
+        <label><input type="radio" name="scope" value="all" ${opt.scope==='all'?'checked':''}><span>全部</span></label>
+        <label><input type="radio" name="scope" value="cat" ${opt.scope==='cat'?'checked':''}><span>カテゴリ</span></label>
+      </div>
+      <select id="cat" ${opt.scope==='cat'?'':'hidden'} aria-label="カテゴリ">
+        ${cs.map(c => `<option value="${esc(c)}" ${c===opt.cat?'selected':''}>${esc(c)}(${ALL.filter(x=>x.cat===c).length}語)</option>`).join('')}
+      </select>
+    </div>
+
+    <h2>順番</h2>
+    <div class="panel"><div class="seg">
+      <label><input type="radio" name="order" value="seq" ${opt.order==='seq'?'checked':''}><span>順番通り</span></label>
+      <label><input type="radio" name="order" value="rnd" ${opt.order==='rnd'?'checked':''}><span>ランダム</span></label>
+    </div></div>
+
+    <h2>はじめる</h2>
+    <button class="btn" data-go="all">4つの形を確かめる<br><small>意味→原形→過去形→過去分詞形→ing形・${pool().length}語</small></button>
+    <button class="btn sun" data-go="past">過去形テスト<br><small>意味を見て、過去形を答える・${pool().length}語</small></button>
+    <button class="btn sun" data-go="part">過去分詞形テスト<br><small>意味を見て、過去分詞形を答える・${pool().length}語</small></button>
+    <button class="btn sun" data-go="pp">過去形・過去分詞形テスト<br><small>意味を見て、2つとも答える・${pool().length}語</small></button>
+
+    <h2>まちがえた語を復習</h2>
+    <div class="row">
+      ${MODE_ORDER.map(m => `<button class="btn ghost" data-rev="${m}" ${wrongOf(m).length?'':'disabled'}>${MODES[m].name} ${wrongOf(m).length}語</button>`).join('')}
+    </div>
+    <p style="text-align:center"><button class="link" id="reset">まちがいの記録を消す</button></p>`;
+
+  document.querySelectorAll('input[name=scope]').forEach(e => e.onchange = () => { opt.scope = e.value; home(); });
+  document.querySelectorAll('input[name=order]').forEach(e => e.onchange = () => { opt.order = e.value; });
+  document.getElementById('cat').onchange = e => { opt.cat = e.target.value; home(); };
+  document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => start(b.dataset.go, false));
+  document.querySelectorAll('[data-rev]').forEach(b => b.onclick = () => start(b.dataset.rev, true));
+  document.getElementById('reset').onclick = () => {
+    if(confirm('まちがいの記録をすべて消しますか?')){ store.wrong = []; store.wrongPP = []; store.wrongPast = []; store.wrongPart = []; saveStore(); home(); }
+  };
+}
+
+/* ---------- カード ---------- */
+function stagesOf(){ return MODES[run.mode].stages; }
+function start(mode, review){
+  let list = review ? ALL.filter(x => wrongOf(mode).includes(x.key)) : pool();
+  if(!list.length) return;
+  if(opt.order === 'rnd') list = shuffle(list);
+  run = { mode, review, queue: list, i: 0, right: 0, wrong: 0, t0: Date.now(), stage: 0, seen: 0 };
+  show();
+}
+function header(){
+  const pct = Math.round(run.i / run.queue.length * 100);
+  return `<div class="meta"><span>${run.review?'復習・':''}${MODES[run.mode].name}・${run.i+1} / ${run.queue.length}</span>
+          <button class="link" id="quit">やめる</button></div>
+          <div class="bar"><i style="width:${pct}%"></i></div>`;
+}
+function show(){
+  const it = run.queue[run.i];
+  const test = MODES[run.mode].test;
+  const stages = stagesOf();
+  const st = run.stage;
+  const last = stages.length - 1;
+  const marked = wrongOf(run.mode).includes(it.key);
+  const cur = stages[st];
+  const tapMsg = st === last ? 'タップして意味にもどる' : 'タップして「' + stages[st+1].label + '」を見る';
+  // 答えの欄(意味の次から)。1つだけのテストでは、カード自体が答えなので欄は出さない
+  const idx = stages.map((_, i) => i).slice(1);
+  const slot = i => `<div class="${st===i?'on':''}">${stages[i].label}<b>${run.seen >= i ? esc(it[stages[i].key]) : '?'}</b></div>`;
+  const showSlots = idx.length > 1;
+  // テストでは、答えを見たあとに原形をそえる(問題のときは、日本語の意味だけ)
+  const base = test && st > 0 ? `<span class="sub">原形: ${esc(it.present)}</span>` : '';
+  $app.innerHTML = `${header()}
+    <div><span class="chip">${esc(it.cat)}</span>${marked?'<span class="chip mark">まちがえ印</span>':''}</div>
+    <button class="face st${st}" id="face" aria-live="polite">
+      <span class="lab">${cur.label}</span>
+      <span class="txt ${st===0?'jp':''}">${esc(it[cur.key])}</span>
+      ${base}
+      <span class="tap">${tapMsg}</span>
+    </button>
+    ${showSlots ? `<div class="forms ${idx.length===2?'two':''}">${idx.map(slot).join('')}</div>` : ''}
+    ${run.seen >= 1 ? `<div class="row">
+        <button class="btn ng" id="bad">まちがえた</button>
+        <button class="btn ok" id="good">わかった</button></div>`
+      : `<p class="lead" style="text-align:center">まず、カードをタップして答えを見よう</p>`}`;
+  document.getElementById('quit').onclick = () => { if(confirm('ホームにもどりますか?')) home(); };
+  document.getElementById('face').onclick = () => {
+    run.stage = (run.stage + 1) % stages.length;
+    run.seen = Math.max(run.seen, run.stage);
+    show();
+    const f = document.getElementById('face'); if(f) f.focus();
+  };
+  if(run.seen >= 1){
+    const list = wrongOf(run.mode);
+    document.getElementById('good').onclick = () => { run.right++; removeFrom(list, it.key); saveStore(); next(); };
+    document.getElementById('bad').onclick = () => { run.wrong++; addTo(list, it.key); saveStore(); next(); };
+  }
+}
+function next(){ run.i++; run.stage = 0; run.seen = 0; run.i >= run.queue.length ? result() : show(); }
+
+/* ---------- 結果 ---------- */
+function levelOf(rate){
+  if(rate >= 95) return '達人';
+  if(rate >= 80) return '名人';
+  if(rate >= 60) return 'ものしり';
+  if(rate >= 40) return '修行中';
+  return '見習い';
+}
+function result(){
+  const n = run.queue.length, sec = Math.round((Date.now() - run.t0) / 1000);
+  const rate = Math.round(run.right / n * 100);
+  const mode = run.mode;
+  const remain = wrongOf(mode).length;
+  $app.innerHTML = `
+    <h1 style="text-align:center">おつかれさま!</h1>
+    <div class="panel">
+      <p class="lead" style="text-align:center">${MODES[mode].name}</p>
+      <div class="score">${run.right} / ${n}</div>
+      <p class="lead" style="text-align:center">正答率 ${rate}%・${Math.floor(sec/60)}分${sec%60}秒</p>
+      <div class="level">レベル:${levelOf(rate)}</div>
+    </div>
+    <button class="btn sun" id="again">もう一度</button>
+    <button class="btn" id="rev" ${remain?'':'disabled'}>まちがえた語を復習(${remain}語)</button>
+    <button class="btn ghost" id="top">ホームへ</button>`;
+  document.getElementById('again').onclick = () => start(mode, false);
+  document.getElementById('rev').onclick = () => start(mode, true);
+  document.getElementById('top').onclick = home;
+}
+
+/* ---------- 起動 ---------- */
+fetch(DATA_URL)
+  .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status + '(ファイルが見つかりません)'); return r.text(); })
+  .then(t => {
+    let d;
+    try { d = JSON.parse(t.replace(/^\uFEFF/, '')); }
+    catch(err){ throw new Error('JSONの書き方にまちがいがあります: ' + err.message); }
+    ALL = normalize(d);
+    if(!ALL.length) throw new Error('動詞のデータが見つかりません(形式を確認してください)');
+    store.wrong = store.wrong.filter(k => ALL.some(x => x.key === k));
+    ['wrongPP', 'wrongPast', 'wrongPart'].forEach(n => { store[n] = store[n].filter(k => ALL.some(x => x.key === k)); });
+    saveStore();
+    home();
+  })
+  .catch(e => {
+    $app.innerHTML = `<div class="err"><b>${esc(DATA_URL)} を読み込めませんでした。</b><br>
+      ・index.html と同じフォルダに置いてありますか?(ファイル名の大文字・小文字も確認)<br>
+      ・index.html をダブルクリックで開いていませんか?ローカルでは Live Server などで開いてください。<br>
+      <hr><b>くわしい原因:</b> ${esc(e.message)}</div>`;
+  });
+</script>
+</body>
+</html>

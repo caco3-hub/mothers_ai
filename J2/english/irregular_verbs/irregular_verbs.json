@@ -1,0 +1,664 @@
+[
+  {
+    "category": "1. A-A-A 型（すべて同じ形）",
+    "verbs": [
+      {
+        "meaning": "（費用などが）かかる",
+        "present": "cost(s)",
+        "past": "cost",
+        "past_participle": "cost",
+        "ing": "costing"
+      },
+      {
+        "meaning": "（〜を切る）",
+        "present": "cut(s)",
+        "past": "cut",
+        "past_participle": "cut",
+        "ing": "cutting"
+      },
+      {
+        "meaning": "（〜を打つ）",
+        "present": "hit(s)",
+        "past": "hit",
+        "past_participle": "hit",
+        "ing": "hitting"
+      },
+      {
+        "meaning": "（〜を傷つける）",
+        "present": "hurt(s)",
+        "past": "hurt",
+        "past_participle": "hurt",
+        "ing": "hurting"
+      },
+      {
+        "meaning": "（…させてやる）",
+        "present": "let(s)",
+        "past": "let",
+        "past_participle": "let",
+        "ing": "letting"
+      },
+      {
+        "meaning": "（〜を置く）",
+        "present": "put(s)",
+        "past": "put",
+        "past_participle": "put",
+        "ing": "putting"
+      },
+      {
+        "meaning": "（〜を読む）",
+        "present": "read(s)",
+        "past": "read [réd]",
+        "past_participle": "read [réd]",
+        "ing": "reading"
+      },
+      {
+        "meaning": "（〜を置く）",
+        "present": "set(s)",
+        "past": "set",
+        "past_participle": "set",
+        "ing": "setting"
+      },
+      {
+        "meaning": "（〜を広げる）",
+        "present": "spread(s)",
+        "past": "spread",
+        "past_participle": "spread",
+        "ing": "spreading"
+      }
+    ]
+  },
+  {
+    "category": "2. A-A-B 型",
+    "verbs": [
+      {
+        "meaning": "（〜を負かす）",
+        "present": "beat(s)",
+        "past": "beat",
+        "past_participle": "beaten, beat",
+        "ing": "beating"
+      }
+    ]
+  },
+  {
+    "category": "3. A-B-A 型（原形と過去分詞が同じ形）",
+    "verbs": [
+      {
+        "meaning": "（〜になる）",
+        "present": "become(s)",
+        "past": "became",
+        "past_participle": "become",
+        "ing": "becoming"
+      },
+      {
+        "meaning": "（来る）",
+        "present": "come(s)",
+        "past": "came",
+        "past_participle": "come",
+        "ing": "coming"
+      },
+      {
+        "meaning": "（〜を克服する）",
+        "present": "overcome(s)",
+        "past": "overcame",
+        "past_participle": "overcome",
+        "ing": "overcoming"
+      },
+      {
+        "meaning": "（走る）",
+        "present": "run(s)",
+        "past": "ran",
+        "past_participle": "run",
+        "ing": "running"
+      }
+    ]
+  },
+  {
+    "category": "4. A-B-B 型（過去形と過去分詞が同じ形）",
+    "verbs": [
+      {
+        "meaning": "（〜を持ってくる）",
+        "present": "bring(s)",
+        "past": "brought",
+        "past_participle": "brought",
+        "ing": "bringing"
+      },
+      {
+        "meaning": "（〜を建ててる）",
+        "present": "build(s)",
+        "past": "built",
+        "past_participle": "built",
+        "ing": "building"
+      },
+      {
+        "meaning": "（〜を燃やす）",
+        "present": "burn(s)",
+        "past": "burned, burnt",
+        "past_participle": "burned, burnt",
+        "ing": "burning"
+      },
+      {
+        "meaning": "（〜を買う）",
+        "present": "buy(s)",
+        "past": "bought",
+        "past_participle": "bought",
+        "ing": "buying"
+      },
+      {
+        "meaning": "（〜をつかまえる）",
+        "present": "catch(es)",
+        "past": "caught",
+        "past_participle": "caught",
+        "ing": "catching"
+      },
+      {
+        "meaning": "（〜を掘る）",
+        "present": "dig(s)",
+        "past": "dug",
+        "past_participle": "dug",
+        "ing": "digging"
+      },
+      {
+        "meaning": "（感じる）",
+        "present": "feel(s)",
+        "past": "felt",
+        "past_participle": "felt",
+        "ing": "feeling"
+      },
+      {
+        "meaning": "（戦う）",
+        "present": "fight(s)",
+        "past": "fought",
+        "past_participle": "fought",
+        "ing": "fighting"
+      },
+      {
+        "meaning": "（〜を見つける）",
+        "present": "find(s)",
+        "past": "found",
+        "past_participle": "found",
+        "ing": "finding"
+      },
+      {
+        "meaning": "（〜を忘れる）",
+        "present": "forget(s)",
+        "past": "forgot",
+        "past_participle": "forgotten, forgot",
+        "ing": "forgetting"
+      },
+      {
+        "meaning": "（〜を得る）",
+        "present": "get(s)",
+        "past": "got",
+        "past_participle": "got, gotten",
+        "ing": "getting"
+      },
+      {
+        "meaning": "（〜をつるす）",
+        "present": "hang(s)",
+        "past": "hung",
+        "past_participle": "hung",
+        "ing": "hanging"
+      },
+      {
+        "meaning": "（〜を持っている）",
+        "present": "have, has",
+        "past": "had",
+        "past_participle": "had",
+        "ing": "having"
+      },
+      {
+        "meaning": "（〜が聞こえる）",
+        "present": "hear(s)",
+        "past": "heard",
+        "past_participle": "heard",
+        "ing": "hearing"
+      },
+      {
+        "meaning": "（〜を手にする）",
+        "present": "hold(s)",
+        "past": "held",
+        "past_participle": "held",
+        "ing": "holding"
+      },
+      {
+        "meaning": "（〜を持ち続ける）",
+        "present": "keep(s)",
+        "past": "kept",
+        "past_participle": "kept",
+        "ing": "keeping"
+      },
+      {
+        "meaning": "（〜を導く）",
+        "present": "lead(s)",
+        "past": "led",
+        "past_participle": "led",
+        "ing": "leading"
+      },
+      {
+        "meaning": "（〜を学ぶ）",
+        "present": "learn(s)",
+        "past": "learned, learnt",
+        "past_participle": "learned, learnt",
+        "ing": "learning"
+      },
+      {
+        "meaning": "（出発する）",
+        "present": "leave(s)",
+        "past": "left",
+        "past_participle": "left",
+        "ing": "leaving"
+      },
+      {
+        "meaning": "（〜を貸す）",
+        "present": "lend(s)",
+        "past": "lent",
+        "past_participle": "lent",
+        "ing": "lending"
+      },
+      {
+        "meaning": "（〜を失う）",
+        "present": "lose(s)",
+        "past": "lost",
+        "past_participle": "lost",
+        "ing": "losing"
+      },
+      {
+        "meaning": "（〜を作る）",
+        "present": "make(s)",
+        "past": "made",
+        "past_participle": "made",
+        "ing": "making"
+      },
+      {
+        "meaning": "（〜を意味する）",
+        "present": "mean(s)",
+        "past": "meant",
+        "past_participle": "meant",
+        "ing": "meaning"
+      },
+      {
+        "meaning": "（〜と会う）",
+        "present": "meet(s)",
+        "past": "met",
+        "past_participle": "met",
+        "ing": "meeting"
+      },
+      {
+        "meaning": "（〜を誤解する）",
+        "present": "misunderstand(s)",
+        "past": "misunderstood",
+        "past_participle": "misunderstood",
+        "ing": "misunderstanding"
+      },
+      {
+        "meaning": "（〜を支払う）",
+        "present": "pay(s)",
+        "past": "paid",
+        "past_participle": "paid",
+        "ing": "paying"
+      },
+      {
+        "meaning": "（〜と言う）",
+        "present": "say(s)",
+        "past": "said",
+        "past_participle": "said",
+        "ing": "saying"
+      },
+      {
+        "meaning": "（〜を売る）",
+        "present": "sell(s)",
+        "past": "sold",
+        "past_participle": "sold",
+        "ing": "selling"
+      },
+      {
+        "meaning": "（〜を送る）",
+        "present": "send(s)",
+        "past": "sent",
+        "past_participle": "sent",
+        "ing": "sending"
+      },
+      {
+        "meaning": "（〜を撃つ）",
+        "present": "shoot(s)",
+        "past": "shot",
+        "past_participle": "shot",
+        "ing": "shooting"
+      },
+      {
+        "meaning": "（座る）",
+        "present": "sit(s)",
+        "past": "sat",
+        "past_participle": "sat",
+        "ing": "sitting"
+      },
+      {
+        "meaning": "（眠る）",
+        "present": "sleep(s)",
+        "past": "slept",
+        "past_participle": "slept",
+        "ing": "sleeping"
+      },
+      {
+        "meaning": "（〜のにおいをかぐ）",
+        "present": "smell(s)",
+        "past": "smelled, smelt",
+        "past_participle": "smelled, smelt",
+        "ing": "smelling"
+      },
+      {
+        "meaning": "（〜を過ごす）",
+        "present": "spend(s)",
+        "past": "spent",
+        "past_participle": "spent",
+        "ing": "spending"
+      },
+      {
+        "meaning": "（立っている）",
+        "present": "stand(s)",
+        "past": "stood",
+        "past_participle": "stood",
+        "ing": "standing"
+      },
+      {
+        "meaning": "（〜を振る）",
+        "present": "swing(s)",
+        "past": "swung",
+        "past_participle": "swung",
+        "ing": "swinging"
+      },
+      {
+        "meaning": "（〜を教える）",
+        "present": "teach(es)",
+        "past": "taught",
+        "past_participle": "taught",
+        "ing": "teaching"
+      },
+      {
+        "meaning": "（〜を話す）",
+        "present": "tell(s)",
+        "past": "told",
+        "past_participle": "told",
+        "ing": "telling"
+      },
+      {
+        "meaning": "（〜と考える）",
+        "present": "think(s)",
+        "past": "thought",
+        "past_participle": "thought",
+        "ing": "thinking"
+      },
+      {
+        "meaning": "（〜を理解する）",
+        "present": "understand(s)",
+        "past": "understood",
+        "past_participle": "understood",
+        "ing": "understanding"
+      },
+      {
+        "meaning": "（勝つ）",
+        "present": "win(s)",
+        "past": "won",
+        "past_participle": "won",
+        "ing": "winning"
+      }
+    ]
+  },
+  {
+    "category": "5. A-B-C 型（すべて違う形）",
+    "verbs": [
+      {
+        "meaning": "（〜である、〜にいる）",
+        "present": "am, are, is",
+        "past": "was, were",
+        "past_participle": "been",
+        "ing": "being"
+      },
+      {
+        "meaning": "（〜に耐える、〜を産む）",
+        "present": "bear(s)",
+        "past": "bore",
+        "past_participle": "born, borne",
+        "ing": "bearing"
+      },
+      {
+        "meaning": "（〜を始める）",
+        "present": "begin(s)",
+        "past": "began",
+        "past_participle": "begun",
+        "ing": "beginning"
+      },
+      {
+        "meaning": "（〜をかむ）",
+        "present": "bite(s)",
+        "past": "bit",
+        "past_participle": "bitten",
+        "ing": "biting"
+      },
+      {
+        "meaning": "（吹く）",
+        "present": "blow(s)",
+        "past": "blew",
+        "past_participle": "blown",
+        "ing": "blowing"
+      },
+      {
+        "meaning": "（〜をこわす）",
+        "present": "break(s)",
+        "past": "broke",
+        "past_participle": "broken",
+        "ing": "breaking"
+      },
+      {
+        "meaning": "（〜を選ぶ）",
+        "present": "choose(s)",
+        "past": "chose",
+        "past_participle": "chosen",
+        "ing": "choosing"
+      },
+      {
+        "meaning": "（〜をする）",
+        "present": "do, does",
+        "past": "did",
+        "past_participle": "done",
+        "ing": "doing"
+      },
+      {
+        "meaning": "（〜を描く）",
+        "present": "draw(s)",
+        "past": "drew",
+        "past_participle": "drawn",
+        "ing": "drawing"
+      },
+      {
+        "meaning": "（〜を飲む）",
+        "present": "drink(s)",
+        "past": "drank",
+        "past_participle": "drunk",
+        "ing": "drinking"
+      },
+      {
+        "meaning": "（〜を運転する）",
+        "present": "drive(s)",
+        "past": "drove",
+        "past_participle": "driven",
+        "ing": "driving"
+      },
+      {
+        "meaning": "（〜を食べる）",
+        "present": "eat(s)",
+        "past": "ate",
+        "past_participle": "eaten",
+        "ing": "eating"
+      },
+      {
+        "meaning": "（落ちる）",
+        "present": "fall(s)",
+        "past": "fell",
+        "past_participle": "fallen",
+        "ing": "falling"
+      },
+      {
+        "meaning": "（飛ぶ）",
+        "present": "fly, flies",
+        "past": "flew",
+        "past_participle": "flown",
+        "ing": "flying"
+      },
+      {
+        "meaning": "（〜を与える）",
+        "present": "give(s)",
+        "past": "gave",
+        "past_participle": "given",
+        "ing": "giving"
+      },
+      {
+        "meaning": "（行く）",
+        "present": "go(es)",
+        "past": "went",
+        "past_participle": "gone",
+        "ing": "going"
+      },
+      {
+        "meaning": "（成長する）",
+        "present": "grow(s)",
+        "past": "grew",
+        "past_participle": "grown",
+        "ing": "growing"
+      },
+      {
+        "meaning": "（〜を隠す）",
+        "present": "hide(s)",
+        "past": "hid",
+        "past_participle": "hidden",
+        "ing": "hiding"
+      },
+      {
+        "meaning": "（〜を知っている）",
+        "present": "know(s)",
+        "past": "knew",
+        "past_participle": "known",
+        "ing": "knowing"
+      },
+      {
+        "meaning": "（横になる）",
+        "present": "lie(s)",
+        "past": "lay",
+        "past_participle": "lain",
+        "ing": "lying"
+      },
+      {
+        "meaning": "（〜を間違える）",
+        "present": "mistake(s)",
+        "past": "mistook",
+        "past_participle": "mistaken",
+        "ing": "mistaking"
+      },
+      {
+        "meaning": "（〜に乗る）",
+        "present": "ride(s)",
+        "past": "rode",
+        "past_participle": "ridden",
+        "ing": "riding"
+      },
+      {
+        "meaning": "（〜を鳴らす、鳴る）",
+        "present": "ring(s)",
+        "past": "rang",
+        "past_participle": "rung",
+        "ing": "ringing"
+      },
+      {
+        "meaning": "（昇る）",
+        "present": "rise(s)",
+        "past": "rose",
+        "past_participle": "risen",
+        "ing": "rising"
+      },
+      {
+        "meaning": "（〜が見える）",
+        "present": "see(s)",
+        "past": "saw",
+        "past_participle": "seen",
+        "ing": "seeing"
+      },
+      {
+        "meaning": "（〜を振る）",
+        "present": "shake(s)",
+        "past": "shook",
+        "past_participle": "shaken",
+        "ing": "shaking"
+      },
+      {
+        "meaning": "（〜を見せる）",
+        "present": "show(s)",
+        "past": "showed",
+        "past_participle": "shown, showed",
+        "ing": "showing"
+      },
+      {
+        "meaning": "（歌う）",
+        "present": "sing(s)",
+        "past": "sang",
+        "past_participle": "sung",
+        "ing": "singing"
+      },
+      {
+        "meaning": "（〜を話す）",
+        "present": "speak(s)",
+        "past": "spoke",
+        "past_participle": "spoken",
+        "ing": "speaking"
+      },
+      {
+        "meaning": "（〜を盗む）",
+        "present": "steal(s)",
+        "past": "stole",
+        "past_participle": "stolen",
+        "ing": "stealing"
+      },
+      {
+        "meaning": "（泳ぐ）",
+        "present": "swim(s)",
+        "past": "swam",
+        "past_participle": "swum",
+        "ing": "swimming"
+      },
+      {
+        "meaning": "（〜を持っていく）",
+        "present": "take(s)",
+        "past": "took",
+        "past_participle": "taken",
+        "ing": "taking"
+      },
+      {
+        "meaning": "（〜を投げる）",
+        "present": "throw(s)",
+        "past": "threw",
+        "past_participle": "thrown",
+        "ing": "throwing"
+      },
+      {
+        "meaning": "（目を覚ます）",
+        "present": "wake(s)",
+        "past": "woke",
+        "past_participle": "woken",
+        "ing": "waking"
+      },
+      {
+        "meaning": "（〜を着ている）",
+        "present": "wear(s)",
+        "past": "wore",
+        "past_participle": "worn",
+        "ing": "wearing"
+      },
+      {
+        "meaning": "（〜を書く）",
+        "present": "write(s)",
+        "past": "wrote",
+        "past_participle": "written",
+        "ing": "writing"
+      }
+    ]
+  }
+]
