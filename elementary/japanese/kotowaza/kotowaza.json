@@ -1,0 +1,842 @@
+[
+  {
+    "number": 1,
+    "proverb": "青は藍より出でて藍より青し",
+    "meaning": "教わった弟子や子どもが、教えてくれた先生や親よりもすごい人になること。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 2,
+    "proverb": "悪事千里を走る",
+    "meaning": "悪いことをすると、あっという間にたくさんの人に知られてしまうということ。",
+    "category": "数字",
+    "subcategory": ["千"]
+  },
+  {
+    "number": 3,
+    "proverb": "足もとから鳥が立つ",
+    "meaning": "自分のすぐ近くで、急にびっくりするような出来事が起きること。",
+    "category": "生き物",
+    "subcategory": ["鳥"]
+  },
+  {
+    "number": 4,
+    "proverb": "後は野となれ山となれ",
+    "meaning": "今さえよければ、この先どうなっても知らないと投げやりになること。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 5,
+    "proverb": "虻蜂捕らず",
+    "meaning": "あれもこれもと欲張ると、結局どちらも手に入らなくなってしまうこと。",
+    "category": "生き物",
+    "subcategory": ["虻", "蜂"]
+  },
+  {
+    "number": 6,
+    "proverb": "雨だれ石をうがつ",
+    "meaning": "小さな努力でも、あきらめずに長く続けていれば、最後には成功するということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 7,
+    "proverb": "雨降って地固まる",
+    "meaning": "もめごとや大変なことが起きたあとには、かえって前よりも良い状態に落ち着くということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 8,
+    "proverb": "案ずるより産むが易し",
+    "meaning": "やる前にあれこれ心配していたよりも、実際にやってみるとずっと簡単だということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 9,
+    "proverb": "石の上にも三年",
+    "meaning": "つらくても我慢して続けていれば、いつかは必ずうまくいくということ。",
+    "category": "数字",
+    "subcategory": ["三"]
+  },
+  {
+    "number": 10,
+    "proverb": "石橋をたたいて渡る",
+    "meaning": "安全だとわかっていても、さらに用心して慎重に行動すること。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 11,
+    "proverb": "医者の不養生",
+    "meaning": "人には立派なアドバイスをするのに、自分ではその通りにできていないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 12,
+    "proverb": "急がば回れ",
+    "meaning": "急いでいるときほど、あせらずに安全な方法を選んだほうが早くゴールに着くということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 13,
+    "proverb": "一を聞いて十を知る",
+    "meaning": "少し話を聞いただけで、全体のことがすべてわかってしまうほど、とても頭が良いこと。",
+    "category": "数字",
+    "subcategory": ["一", "十"]
+  },
+  {
+    "number": 14,
+    "proverb": "一寸先は闇",
+    "meaning": "すぐ先の未来のことでさえ、何が起こるか誰にも予想できないということ。",
+    "category": "数字",
+    "subcategory": ["一"]
+  },
+  {
+    "number": 15,
+    "proverb": "一寸の虫にも五分の魂",
+    "meaning": "小さくて弱い生き物や人にも、それなりの考えや意地があるということ。",
+    "category": "数字",
+    "subcategory": ["一", "五"]
+  },
+  {
+    "number": 16,
+    "proverb": "犬も歩けば棒にあたる",
+    "meaning": "何か行動してみると、思いがけないラッキーなことや、逆にトラブルに出会うことがあるということ。",
+    "category": "生き物",
+    "subcategory": ["犬"]
+  },
+  {
+    "number": 17,
+    "proverb": "井の中の蛙大海を知らず",
+    "meaning": "自分の知っている狭い世界のことだけを見て、広い世界のことを知らないこと。",
+    "category": "生き物",
+    "subcategory": ["蛙"]
+  },
+  {
+    "number": 18,
+    "proverb": "鰯の頭も信心から",
+    "meaning": "他の人から見ればつまらないものでも、本人が強く信じればとても尊いものに思えるということ。",
+    "category": "生き物",
+    "subcategory": ["鰯"]
+  },
+  {
+    "number": 19,
+    "proverb": "言わぬが花",
+    "meaning": "なんでもかんでも口に出さず、黙っていたほうがかえって良い場合があるということ。",
+    "category": "植物",
+    "subcategory": ["花"]
+  },
+  {
+    "number": 20,
+    "proverb": "魚心あれば水心",
+    "meaning": "相手が優しく接してくれれば、こちらも同じように優しくしたくなるということ。",
+    "category": "生き物",
+    "subcategory": ["魚"]
+  },
+  {
+    "number": 21,
+    "proverb": "牛に引かれて善光寺参り",
+    "meaning": "他の人や出来事に誘われて、思いがけず良い方向へ導かれること。",
+    "category": "生き物",
+    "subcategory": ["牛"]
+  },
+  {
+    "number": 22,
+    "proverb": "氏より育ち",
+    "meaning": "どんな家に生まれたかよりも、どんな環境で育ち、どんな教育を受けたかのほうが大切だということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 23,
+    "proverb": "嘘から出たまこと",
+    "meaning": "冗談や嘘のつもりで言ったことが、たまたま本当になってしまうこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 24,
+    "proverb": "うどの大木",
+    "meaning": "体ばかり大きくて、何の役にも立たないこと。",
+    "category": "植物",
+    "subcategory": ["うど", "木"]
+  },
+  {
+    "number": 25,
+    "proverb": "馬の耳に念仏",
+    "meaning": "いくら大切なことを言って聞かせても、まったく効果がないこと。",
+    "category": "生き物",
+    "subcategory": ["馬"]
+  },
+  {
+    "number": 26,
+    "proverb": "瓜のつるになすびはならぬ",
+    "meaning": "普通の親からは普通の子どもが生まれ、特別な才能を持った子は生まれにくいということ。",
+    "category": "植物",
+    "subcategory": ["瓜", "なすび"]
+  },
+  {
+    "number": 27,
+    "proverb": "えびで鯛を釣る",
+    "meaning": "少しの努力やお金で、とても大きな利益を手に入れること。",
+    "category": "生き物",
+    "subcategory": ["えび", "鯛"]
+  },
+  {
+    "number": 28,
+    "proverb": "鬼の目にも涙",
+    "meaning": "普段はとても冷たくて怖い人でも、ときには優しい気持ちになって涙を流すことがあるということ。",
+    "category": "生き物",
+    "subcategory": ["鬼"]
+  },
+  {
+    "number": 29,
+    "proverb": "帯に短したすきに長し",
+    "meaning": "長さが中途半端で、どちらの用途にもちょうどよく使えないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 30,
+    "proverb": "溺れる者はわらをもつかむ",
+    "meaning": "本当に困ったときは、どんなに頼りないものにでもすがりつきたくなるということ。",
+    "category": "植物",
+    "subcategory": ["わら"]
+  },
+  {
+    "number": 31,
+    "proverb": "親の心子知らず",
+    "meaning": "親が子どものことを思って心配しているのに、子どもはそれに気づかず好き勝手に行動するということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 32,
+    "proverb": "飼い犬に手を噛まれる",
+    "meaning": "ずっと信じて可愛がっていた人や仲間に裏切られて、ひどい目にあうこと。",
+    "category": "生き物",
+    "subcategory": ["犬"]
+  },
+  {
+    "number": 33,
+    "proverb": "蛙の子は蛙",
+    "meaning": "普通の親から生まれた子どもは、やっぱり親に似て普通の人になるということ。",
+    "category": "生き物",
+    "subcategory": ["蛙"]
+  },
+  {
+    "number": 34,
+    "proverb": "蛙の面に水",
+    "meaning": "どんなに怒られたり嫌なことをされたりしても、まったく気にせず平気な顔をしている様子。",
+    "category": "生き物",
+    "subcategory": ["蛙"]
+  },
+  {
+    "number": 35,
+    "proverb": "火中の栗を拾う",
+    "meaning": "自分のためではなく、他の人の利益のためにわざわざ危険なことをすること。",
+    "category": "植物",
+    "subcategory": ["栗"]
+  },
+  {
+    "number": 36,
+    "proverb": "河童の川流れ",
+    "meaning": "どんなに得意なことでも、ときにはうっかり失敗することがあるということ。",
+    "category": "生き物",
+    "subcategory": ["河童"]
+  },
+  {
+    "number": 37,
+    "proverb": "壁に耳あり障子に目あり",
+    "meaning": "誰にも知られていないと思っている秘密でも、どこで誰が見たり聞いたりしているかわからないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 38,
+    "proverb": "果報は寝て待て",
+    "meaning": "幸運は焦って無理に手に入れようとせず、のんびりチャンスを待ったほうがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 39,
+    "proverb": "亀の甲より年の功",
+    "meaning": "長く生きてきた人の豊かな経験や知恵は、とても大切で役に立つということ。",
+    "category": "生き物",
+    "subcategory": ["亀"]
+  },
+  {
+    "number": 40,
+    "proverb": "枯れ木も山のにぎわい",
+    "meaning": "つまらないものでも、何もないよりはあったほうが少しは華やかでましだということ。",
+    "category": "植物",
+    "subcategory": ["木"]
+  },
+  {
+    "number": 41,
+    "proverb": "かわいい子には旅をさせよ",
+    "meaning": "子どもを本当に愛しているなら、甘やかさずに外の世界でいろいろな経験をさせたほうがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 42,
+    "proverb": "きじも鳴かずば撃たれまい",
+    "meaning": "余計なことを言わなければ、わざわざ災いやトラブルに巻き込まれることもないということ。",
+    "category": "生き物",
+    "subcategory": ["きじ"]
+  },
+  {
+    "number": 43,
+    "proverb": "木に竹をつぐ",
+    "meaning": "前後のつながりがちぐはぐで、しっくりこない様子。",
+    "category": "植物",
+    "subcategory": ["木", "竹"]
+  },
+  {
+    "number": 44,
+    "proverb": "腐っても鯛",
+    "meaning": "もともと素晴らしいものや実力がある人は、たとえ落ちぶれても価値があるということ。",
+    "category": "生き物",
+    "subcategory": ["鯛"]
+  },
+  {
+    "number": 45,
+    "proverb": "口は禍いの門",
+    "meaning": "うっかり余計なことを言うと、それが原因で大きなトラブルになるから気をつけたほうがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 46,
+    "proverb": "苦は楽の種",
+    "meaning": "今つらい思いをして頑張っておけば、あとで必ず楽しいことや良いことがやってくるということ。",
+    "category": "植物",
+    "subcategory": ["種"]
+  },
+  {
+    "number": 47,
+    "proverb": "君子危うきに近寄らず",
+    "meaning": "本当に賢い人は、わざわざ危険な場所や危ないことには近づかないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 48,
+    "proverb": "郷に入っては郷に従え",
+    "meaning": "新しい場所や環境に行ったら、その場所のルールややり方に合わせるのがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 49,
+    "proverb": "弘法にも筆の誤り",
+    "meaning": "どんなにすごい名人でも、ときにはうっかりミスをすることがあるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 50,
+    "proverb": "弘法筆を選ばず",
+    "meaning": "本当の名人は、道具の良し悪しに文句を言わず、どんな道具でも上手に使いこなすということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 51,
+    "proverb": "紺屋の白袴",
+    "meaning": "人のことばかり一生懸命やっていて、自分のことは後回しになってしまうこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 52,
+    "proverb": "転ばぬ先の杖",
+    "meaning": "失敗して困らないように、あらかじめしっかりと準備をしておくべきだということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 53,
+    "proverb": "先んずれば人を制す",
+    "meaning": "相手よりも少しでも早く行動を起こせば、自分たちが有利になるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 54,
+    "proverb": "猿も木から落ちる",
+    "meaning": "木登りが得意な猿でも落ちることがあるように、どんな名人でも失敗することがあるということ。",
+    "category": "生き物",
+    "subcategory": ["猿"]
+  },
+  {
+    "number": 55,
+    "proverb": "触らぬ神にたたりなし",
+    "meaning": "危なそうなことや面倒なことには最初から関わらなければ、トラブルに巻き込まれないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 56,
+    "proverb": "三人寄れば文殊の知恵",
+    "meaning": "普通の人でも三人集まって相談すれば、とても良いアイデアが思いつくということ。",
+    "category": "数字",
+    "subcategory": ["三"]
+  },
+  {
+    "number": 57,
+    "proverb": "朱に交われば赤くなる",
+    "meaning": "人は一緒に過ごす友達によって、良くも悪くも影響を受けるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 58,
+    "proverb": "知らぬが仏",
+    "meaning": "事実を知らないために、本人は何も気にせず平気な顔をしていること。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 59,
+    "proverb": "人事を尽くして天命を待つ",
+    "meaning": "自分にできる精一杯の努力をしたら、あとは余計な心配をせずに結果を待つこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 60,
+    "proverb": "好きこそ物の上手なれ",
+    "meaning": "好きなことなら自分から進んで努力するので、どんどん上手になるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 61,
+    "proverb": "雀百まで踊り忘れず",
+    "meaning": "小さいころに身につけた習慣や癖は、大人になって年をとっても忘れないということ。",
+    "category": "生き物",
+    "subcategory": ["雀"]
+  },
+  {
+    "number": 62,
+    "proverb": "住めば都",
+    "meaning": "どんな場所でも、長く住んで慣れてくると愛着がわいて良いところに思えてくるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 63,
+    "proverb": "急いては事を仕損じる",
+    "meaning": "物事を急ぎすぎると焦って失敗しやすいので、落ち着いて行動したほうがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 64,
+    "proverb": "背に腹はかえられぬ",
+    "meaning": "本当に大切なことを守るためには、他の何かを我慢したり犠牲にしたりするのも仕方ないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 65,
+    "proverb": "船頭多くして船山に登る",
+    "meaning": "命令したり指図したりする人が多すぎると、意見がまとまらず物事がうまく進まないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 66,
+    "proverb": "善は急げ",
+    "meaning": "良いと思ったことは、チャンスを逃さないようにすぐに行動したほうがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 67,
+    "proverb": "千里の道も一歩から",
+    "meaning": "どんなに大きな目標でも、まずは身近な小さな一歩から始めることで達成できるということ。",
+    "category": "数字",
+    "subcategory": ["千", "一"]
+  },
+  {
+    "number": 68,
+    "proverb": "大は小を兼ねる",
+    "meaning": "大きいものは、小さいものの代わりとしても使うことができるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 69,
+    "proverb": "立つ鳥あとをにごさず",
+    "meaning": "その場所から離れるときは、あとで見苦しくないようにきれいに片づけていくべきだということ。",
+    "category": "生き物",
+    "subcategory": ["鳥"]
+  },
+  {
+    "number": 70,
+    "proverb": "蓼食う虫も好き好き",
+    "meaning": "人の好みは一人ひとりまったく違うものだということ。",
+    "category": "植物",
+    "subcategory": ["蓼"]
+  },
+  {
+    "number": 71,
+    "proverb": "棚からぼたもち",
+    "meaning": "何も苦労していないのに、思いがけないラッキーなことが舞い込むこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 72,
+    "proverb": "旅は道づれ世は情け",
+    "meaning": "旅をするときは一緒に行く仲間がいると心強く、世の中はお互いに助け合う優しい心が大切だということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 73,
+    "proverb": "提灯につり鐘",
+    "meaning": "大きさや重さなどがまったく違っていて、つり合いがとれないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 74,
+    "proverb": "塵も積もれば山となる",
+    "meaning": "一つひとつはとても小さなものでも、たくさん積み重なれば大きなものになるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 75,
+    "proverb": "月とすっぽん",
+    "meaning": "形は似ていても、比べものにならないくらいまったく違うこと。",
+    "category": "生き物",
+    "subcategory": ["すっぽん"]
+  },
+  {
+    "number": 76,
+    "proverb": "角をためて牛を殺す",
+    "meaning": "ほんの小さな欠点を直そうとしてやりすぎた結果、全体をダメにしてしまうこと。",
+    "category": "生き物",
+    "subcategory": ["牛"]
+  },
+  {
+    "number": 77,
+    "proverb": "鶴の一声",
+    "meaning": "力のあるすごい人のたった一言で、なかなか決まらなかった話し合いが一気にまとまること。",
+    "category": "生き物",
+    "subcategory": ["鶴"]
+  },
+  {
+    "number": 78,
+    "proverb": "出る杭は打たれる",
+    "meaning": "人より目立ったことをしたり優れた力を見せたりすると、周りから邪魔されたり嫌われたりするということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 79,
+    "proverb": "灯台下暗し",
+    "meaning": "自分のすぐ近くにあることや身近なことほど、意外と気づきにくいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 80,
+    "proverb": "豆腐にかすがい",
+    "meaning": "いくら注意して言い聞かせても、まったく手ごたえや効果がないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 81,
+    "proverb": "捕らぬ狸の皮算用",
+    "meaning": "まだ手に入れてもいないものを、もう手に入れたつもりになってあれこれ計画を立てること。",
+    "category": "生き物",
+    "subcategory": ["狸"]
+  },
+  {
+    "number": 82,
+    "proverb": "どんぐりの背比べ",
+    "meaning": "どれもみんな同じくらいのレベルで、特別にすごいものがないこと。",
+    "category": "植物",
+    "subcategory": ["どんぐり"]
+  },
+  {
+    "number": 83,
+    "proverb": "鳶が鷹を生む",
+    "meaning": "普通の親から、とても優れた才能を持った子どもが生まれること。",
+    "category": "生き物",
+    "subcategory": ["鳶", "鷹"]
+  },
+  {
+    "number": 84,
+    "proverb": "長いものには巻かれろ",
+    "meaning": "自分より力が強い人には逆らわずに従っておいたほうが、結局は自分のためになるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 85,
+    "proverb": "泣き面に蜂",
+    "meaning": "悲しいことや悪いことが起きたうえに、さらに嫌なことが重なってしまうこと。",
+    "category": "生き物",
+    "subcategory": ["蜂"]
+  },
+  {
+    "number": 86,
+    "proverb": "情けは人のためならず",
+    "meaning": "人に親切にしておくと、巡り巡っていつかは自分のためになって返ってくるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 87,
+    "proverb": "七転び八起き",
+    "meaning": "何度失敗して転んでも、あきらめずに立ち上がって頑張ること。",
+    "category": "数字",
+    "subcategory": ["七", "八"]
+  },
+  {
+    "number": 88,
+    "proverb": "二階から目薬",
+    "meaning": "遠回りすぎてうまく届かず、もどかしくて効果がないこと。",
+    "category": "数字",
+    "subcategory": ["二"]
+  },
+  {
+    "number": 89,
+    "proverb": "二度あることは三度ある",
+    "meaning": "同じことが二度続けて起きたら、きっと三度目も起こるものだということ。",
+    "category": "数字",
+    "subcategory": ["二", "三"]
+  },
+  {
+    "number": 90,
+    "proverb": "二兎を追う者は一兎をも得ず",
+    "meaning": "二つのことを同時に手に入れようと欲張ると、結局どちらも失敗してしまうということ。",
+    "category": "数字",
+    "subcategory": ["二", "一"]
+  },
+  {
+    "number": 91,
+    "proverb": "ぬかに釘",
+    "meaning": "まったく手ごたえがなく、いくら意見を言っても効き目がないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 92,
+    "proverb": "ぬれ手で粟",
+    "meaning": "ほとんど苦労しないで、たくさんの利益を手に入れること。",
+    "category": "植物",
+    "subcategory": ["粟"]
+  },
+  {
+    "number": 93,
+    "proverb": "猫にかつおぶし",
+    "meaning": "大好物をすぐそばに置くと、盗まれたり食べられたりして危険だということ。",
+    "category": "生き物",
+    "subcategory": ["猫"]
+  },
+  {
+    "number": 94,
+    "proverb": "猫に小判",
+    "meaning": "どんなに価値のある素晴らしいものでも、その良さがわからない人に与えても無駄だということ。",
+    "category": "生き物",
+    "subcategory": ["猫"]
+  },
+  {
+    "number": 95,
+    "proverb": "能ある鷹は爪を隠す",
+    "meaning": "本当に実力がある人は、普段はその力をむやみに自慢したり見せびらかしたりしないということ。",
+    "category": "生き物",
+    "subcategory": ["鷹"]
+  },
+  {
+    "number": 96,
+    "proverb": "のど元過ぎれば熱さを忘れる",
+    "meaning": "つらかったことや苦しかったことも、終わってしまえばその苦しさをすぐに忘れてしまうということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 97,
+    "proverb": "のれんに腕押し",
+    "meaning": "いくら力を入れてもまったく手ごたえがなく、張り合いがないこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 98,
+    "proverb": "花より団子",
+    "meaning": "見た目の美しさよりも、実際に食べられたり役に立ったりするもののほうがよいということ。",
+    "category": "植物",
+    "subcategory": ["花"]
+  },
+  {
+    "number": 99,
+    "proverb": "早起きは三文の徳",
+    "meaning": "朝早く起きると、少しであっても何かしら良いことや得をすることがあるということ。",
+    "category": "数字",
+    "subcategory": ["三"]
+  },
+  {
+    "number": 100,
+    "proverb": "人のうわさも七十五日",
+    "meaning": "世間の人のうわさ話は長くは続かず、しばらくすればみんな忘れてしまうということ。",
+    "category": "数字",
+    "subcategory": ["七十五"]
+  },
+  {
+    "number": 101,
+    "proverb": "人の振り見て我が振り直せ",
+    "meaning": "他の人の良くない行動を見て、自分にも同じところがないか反省して直すのがよいということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 102,
+    "proverb": "百聞は一見にしかず",
+    "meaning": "人から何度も話を聞くよりも、自分の目で一度実際に見たほうがずっとよくわかるということ。",
+    "category": "数字",
+    "subcategory": ["百", "一"]
+  },
+  {
+    "number": 103,
+    "proverb": "豚に真珠",
+    "meaning": "どんなに高価で貴重なものでも、価値がわからない人には何の役にも立たないということ。",
+    "category": "生き物",
+    "subcategory": ["豚"]
+  },
+  {
+    "number": 104,
+    "proverb": "下手の横好き",
+    "meaning": "あまり上手ではないのに、そのことが大好きでとても熱心に取り組むこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 105,
+    "proverb": "仏作って魂入れず",
+    "meaning": "一生懸命に作ったのに、一番大切な部分が抜けていて何の役にも立たないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 106,
+    "proverb": "仏の顔も三度",
+    "meaning": "どんなに優しい人でも、何度もひどいことをされれば最後は怒ってしまうということ。",
+    "category": "数字",
+    "subcategory": ["三"]
+  },
+  {
+    "number": 107,
+    "proverb": "骨折り損のくたびれもうけ",
+    "meaning": "せっかく苦労して頑張ったのに、何の成果も得られず疲れただけで終わってしまうこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 108,
+    "proverb": "まかぬ種は生えぬ",
+    "meaning": "何の努力もしなければ、良い結果が生まれるはずがないということ。",
+    "category": "植物",
+    "subcategory": ["種"]
+  },
+  {
+    "number": 109,
+    "proverb": "負けるが勝ち",
+    "meaning": "無理に言い争わず相手に勝ちをゆずったほうが、結局は自分の得になるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 110,
+    "proverb": "待てば海路の日和あり",
+    "meaning": "あわてずにじっとチャンスを待っていれば、そのうちきっと幸運がやってくるということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 111,
+    "proverb": "身から出た錆",
+    "meaning": "自分自身がした悪いことや失敗が原因で、自分が困る結果になってしまうこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 112,
+    "proverb": "三つ子の魂百まで",
+    "meaning": "小さいころの性格や性質は、大人になって年をとっても変わらないものだということ。",
+    "category": "数字",
+    "subcategory": ["三", "百"]
+  },
+  {
+    "number": 113,
+    "proverb": "焼け石に水",
+    "meaning": "少しばかりの助けや努力では、まったく効果がないということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 114,
+    "proverb": "柳の下にいつもどじょうはいない",
+    "meaning": "一度うまくいったからといって、同じやり方でいつも幸運に出会えるとは限らないということ。",
+    "category": "植物",
+    "subcategory": ["柳"]
+  },
+  {
+    "number": 115,
+    "proverb": "やぶをつついて蛇を出す",
+    "meaning": "余計なことをしたせいで、かえって悪いことやトラブルを引き起こしてしまうこと。",
+    "category": "生き物",
+    "subcategory": ["蛇"]
+  },
+  {
+    "number": 116,
+    "proverb": "弱り目にたたり目",
+    "meaning": "困っているときや不運なときに、さらに悪いことが重なってしまうこと。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 117,
+    "proverb": "良薬は口に苦し",
+    "meaning": "自分のためになる大切なアドバイスほど、聞くときは耳が痛くて嫌な気持ちになるものだということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 118,
+    "proverb": "論より証拠",
+    "meaning": "あれこれ言葉で説明するよりも、はっきりした証拠を見せるほうがずっと確かだということ。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 119,
+    "proverb": "渡りに船",
+    "meaning": "困っているちょうどそのときに、とても都合の良い助けやチャンスがやってくること。",
+    "category": null,
+    "subcategory": []
+  },
+  {
+    "number": 120,
+    "proverb": "渡る世間に鬼はない",
+    "meaning": "世の中には冷たくて意地悪な人ばかりではなく、優しく親切にしてくれる人もちゃんといるということ。",
+    "category": "生き物",
+    "subcategory": ["鬼"]
+  }
+]
