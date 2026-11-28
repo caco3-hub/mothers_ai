@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>明治維新 一問一答 | お母さんの愛AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef7f2;--ink:#23395b;--sub:#5d7290;--blue:#3a86ff;--sun:#ffb703;--ok:#2a9d6f;--ng:#e5484d;--card:#fff;--line:#d3e3da}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;font-weight:500;line-height:1.7;min-height:100vh}
+#app{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+h1{font-size:1.5rem;font-weight:900;margin:8px 0 2px}
+h2{font-size:1.05rem;font-weight:900;margin:22px 0 8px}
+.lead{color:var(--sub);margin:0 0 8px;font-size:.92rem}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:14px 16px;margin-bottom:12px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1;min-width:120px}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;text-align:center;padding:10px 8px;border:2px solid var(--line);border-radius:14px;cursor:pointer;font-weight:700;background:#fff}
+.seg input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+select{width:100%;margin-top:10px;padding:10px;border:2px solid var(--line);border-radius:14px;font:inherit;background:#fff;color:var(--ink)}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:14px 16px;font:inherit;font-weight:900;font-size:1.05rem;cursor:pointer;color:#fff;background:var(--blue);margin-top:10px;box-shadow:0 4px 0 rgba(35,57,91,.25)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(35,57,91,.25)}
+.btn:focus-visible,.choice:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.btn.sun{background:var(--sun);color:var(--ink)}
+.btn.ok{background:var(--ok)}.btn.ng{background:var(--ng)}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:none}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--sun);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--sub);font-size:.88rem}
+.chip{display:inline-block;background:#e4efff;color:#2756b5;border-radius:20px;padding:1px 10px;font-size:.8rem;font-weight:700;margin-right:6px}
+.chip.mark{background:#ffe3e4;color:var(--ng)}
+.big{font-size:2rem;font-weight:900;text-align:center;margin:18px 0 10px;line-height:1.4}
+.meaning{text-align:center;font-size:1.1rem;min-height:3.4em;padding:8px;border-radius:14px;background:#fff8e1}
+.idiom{font-size:1.45rem;font-weight:900;padding:10px 14px;border-radius:14px;background:#fff;border:2px solid var(--line);margin:8px 0}
+.idiom small{display:block;font-size:.85rem;font-weight:500;color:var(--sub)}
+.idiom b{color:var(--ok);background:#dff5ea;border-radius:6px;padding:0 4px}
+.blank{display:inline-block;min-width:1.4em;text-align:center;border-bottom:3px solid var(--sun);color:var(--sun)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.choice{padding:14px;border:2px solid var(--line);border-radius:16px;background:#fff;font:inherit;font-weight:900;font-size:1.3rem;color:var(--ink);cursor:pointer}
+.choice.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.wrong{background:var(--ng);border-color:var(--ng);color:#fff}
+.verdict{text-align:center;font-weight:900;font-size:1.3rem;margin:10px 0 0}
+.score{font-size:3rem;font-weight:900;text-align:center;line-height:1.2}
+.level{text-align:center;font-size:1.3rem;font-weight:900;background:var(--sun);border-radius:16px;padding:6px;margin:10px 0}
+.err{background:#ffe3e4;border:2px solid var(--ng);border-radius:16px;padding:14px}
+.link{background:none;border:0;color:var(--sub);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.figure{margin:10px 0;text-align:center}
+.figure img{max-width:100%;max-height:280px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:zoom-in}
+.figure small{display:block;color:var(--sub);font-size:.8rem}
+.q{font-size:1.2rem;font-weight:700;margin:12px 0}
+.answer{text-align:center;font-size:1.5rem;font-weight:900;min-height:3.4em;padding:10px;border-radius:14px;background:#fff8e1}
+.zoom{position:fixed;inset:0;background:rgba(35,57,91,.85);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10;cursor:zoom-out}
+.zoom img{max-width:100%;max-height:100%;background:#fff;border-radius:12px}
+</style>
+</head>
+<body>
+<div id="app"><p class="lead">読み込み中…</p></div>
+<script>
+const DATA_URL = 'meiji1.json';   // 問題データ(同じフォルダ。GitHub Pagesは大文字小文字を区別します)
+const STORE_KEY = 'meiji1-v1';
+const $app = document.getElementById('app');
+
+let ALL = [];
+let store = loadStore();
+let opt = { scope: 'all', sec: '', order: 'seq' };
+let run = null;
+
+/* ---------- 保存 ---------- */
+function loadStore(){
+  const base = { wrong: [] };
+  try { return Object.assign(base, JSON.parse(localStorage.getItem(STORE_KEY) || '{}')); }
+  catch(e){ return base; }
+}
+function saveStore(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch(e){} }
+function addTo(list, v){ if(!list.includes(v)) list.push(v); }
+function removeFrom(list, v){ const i = list.indexOf(v); if(i>=0) list.splice(i,1); }
+
+/* ---------- ユーティリティ ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function normalize(raw){
+  const arr = Array.isArray(raw) ? raw : (raw.data || raw.items || Object.values(raw));
+  return arr.filter(r => r && r.question).map((r, i) => ({
+    id: Number(r.id) || i + 1, sec: r.category || r.section || 'その他', image: r.image || null,
+    q: r.question, a: r.answer ?? ''
+  })).sort((a, b) => a.id - b.id);
+}
+function sections(){ return [...new Set(ALL.map(x => x.sec))]; }
+function pool(){ return opt.scope === 'sec' ? ALL.filter(x => x.sec === opt.sec) : ALL; }
+
+/* ---------- ホーム ---------- */
+function home(){
+  run = null;
+  const secs = sections();
+  if(!secs.includes(opt.sec)) opt.sec = secs[0];
+  $app.innerHTML = `
+    <h1>明治維新 一問一答</h1>
+    <p class="lead">全${ALL.length}問。答えを思い出してから、答えを見よう。</p>
+
+    <h2>範囲</h2>
+    <div class="panel">
+      <div class="seg">
+        <label><input type="radio" name="scope" value="all" ${opt.scope==='all'?'checked':''}><span>全部</span></label>
+        <label><input type="radio" name="scope" value="sec" ${opt.scope==='sec'?'checked':''}><span>カテゴリ</span></label>
+      </div>
+      <select id="sec" ${opt.scope==='sec'?'':'hidden'} aria-label="カテゴリ">
+        ${secs.map(c => `<option value="${esc(c)}" ${c===opt.sec?'selected':''}>${esc(c)}(${ALL.filter(x=>x.sec===c).length}問)</option>`).join('')}
+      </select>
+    </div>
+
+    <h2>順番</h2>
+    <div class="panel"><div class="seg">
+      <label><input type="radio" name="order" value="seq" ${opt.order==='seq'?'checked':''}><span>順番通り</span></label>
+      <label><input type="radio" name="order" value="rnd" ${opt.order==='rnd'?'checked':''}><span>ランダム</span></label>
+    </div></div>
+
+    <h2>はじめる</h2>
+    <button class="btn" id="go">スタート<br><small>${pool().length}問</small></button>
+
+    <h2>まちがえた問題を復習</h2>
+    <button class="btn sun" id="rev" ${store.wrong.length?'':'disabled'}>まちがえた問題 ${store.wrong.length}問</button>
+    <p style="text-align:center"><button class="link" id="reset">まちがいの記録を消す</button></p>`;
+
+  document.querySelectorAll('input[name=scope]').forEach(e => e.onchange = () => { opt.scope = e.value; home(); });
+  document.querySelectorAll('input[name=order]').forEach(e => e.onchange = () => { opt.order = e.value; });
+  document.getElementById('sec').onchange = e => { opt.sec = e.target.value; home(); };
+  document.getElementById('go').onclick = () => start(false);
+  document.getElementById('rev').onclick = () => start(true);
+  document.getElementById('reset').onclick = () => {
+    if(confirm('まちがいの記録をすべて消しますか?')){ store.wrong = []; saveStore(); home(); }
+  };
+}
+
+/* ---------- 出題 ---------- */
+function start(review){
+  let list = review ? ALL.filter(x => store.wrong.includes(x.id)) : pool();
+  if(!list.length) return;
+  if(opt.order === 'rnd') list = shuffle(list);
+  run = { review, queue: list, i: 0, right: 0, wrong: 0, t0: Date.now() };
+  show();
+}
+function header(){
+  const pct = Math.round(run.i / run.queue.length * 100);
+  return `<div class="meta"><span>${run.review?'復習 ':''}${run.i+1} / ${run.queue.length}</span>
+          <button class="link" id="quit">やめる</button></div>
+          <div class="bar"><i style="width:${pct}%"></i></div>`;
+}
+function show(revealed){
+  const it = run.queue[run.i];
+  const marked = store.wrong.includes(it.id);
+  $app.innerHTML = `${header()}
+    <div class="panel">
+      <div><span class="chip">${esc(it.sec)}</span>${marked?'<span class="chip mark">まちがえ印</span>':''}</div>
+      ${it.image ? `<div class="figure"><img src="${esc(it.image)}" alt="問題の図" id="fig"><small>タップで大きく見えます</small></div>` : ''}
+      <div class="q">${esc(it.q)}</div>
+      <div class="answer" aria-live="polite">${revealed ? esc(it.a) : ''}</div>
+    </div>
+    ${revealed ? `<div class="row">
+        <button class="btn ng" id="bad">まちがえた</button>
+        <button class="btn ok" id="good">わかった</button></div>`
+      : `<button class="btn" id="show">答えを見る</button>`}`;
+  const q = document.getElementById('quit');
+  q.onclick = () => { if(confirm('ホームにもどりますか?')) home(); };
+  const fig = document.getElementById('fig');
+  if(fig){
+    fig.onerror = () => { fig.parentNode.innerHTML = '<small>(画像を読み込めませんでした: ' + esc(it.image) + ')</small>'; };
+    fig.onclick = () => {
+      const z = document.createElement('div');
+      z.className = 'zoom';
+      z.innerHTML = '<img src="' + esc(it.image) + '" alt="拡大した図">';
+      z.onclick = () => z.remove();
+      document.body.appendChild(z);
+    };
+  }
+  if(!revealed){ document.getElementById('show').onclick = () => show(true); return; }
+  document.getElementById('good').onclick = () => { run.right++; removeFrom(store.wrong, it.id); saveStore(); next(); };
+  document.getElementById('bad').onclick = () => { run.wrong++; addTo(store.wrong, it.id); saveStore(); next(); };
+}
+function next(){ run.i++; run.i >= run.queue.length ? result() : show(); }
+
+/* ---------- 結果 ---------- */
+function levelOf(rate){
+  if(rate >= 95) return '達人';
+  if(rate >= 80) return '名人';
+  if(rate >= 60) return 'ものしり';
+  if(rate >= 40) return '修行中';
+  return '見習い';
+}
+function result(){
+  const n = run.queue.length, sec = Math.round((Date.now() - run.t0) / 1000);
+  const rate = Math.round(run.right / n * 100);
+  const remain = store.wrong.length;
+  $app.innerHTML = `
+    <h1 style="text-align:center">おつかれさま!</h1>
+    <div class="panel">
+      <div class="score">${run.right} / ${n}</div>
+      <p class="lead" style="text-align:center">正答率 ${rate}%・${Math.floor(sec/60)}分${sec%60}秒</p>
+      <div class="level">レベル:${levelOf(rate)}</div>
+    </div>
+    <button class="btn sun" id="again">もう一度</button>
+    <button class="btn" id="rev" ${remain?'':'disabled'}>まちがえた問題を復習(${remain}問)</button>
+    <button class="btn ghost" id="top">ホームへ</button>`;
+  document.getElementById('again').onclick = () => start(false);
+  document.getElementById('rev').onclick = () => start(true);
+  document.getElementById('top').onclick = home;
+}
+
+/* ---------- 起動 ---------- */
+fetch(DATA_URL)
+  .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status + '(ファイルが見つかりません)'); return r.text(); })
+  .then(t => {
+    let d;
+    try { d = JSON.parse(t.replace(/^\uFEFF/, '')); }
+    catch(err){ throw new Error('JSONの書き方にまちがいがあります: ' + err.message); }
+    ALL = normalize(d);
+    store.wrong = store.wrong.filter(id => ALL.some(x => x.id === id));
+    saveStore();
+    home();
+  })
+  .catch(e => {
+    $app.innerHTML = `<div class="err"><b>${esc(DATA_URL)} を読み込めませんでした。</b><br>
+      ・index.html と同じフォルダに置いてありますか?(ファイル名の大文字・小文字も確認)<br>
+      ・index.html をダブルクリックで開いていませんか?ローカルでは Live Server などで開いてください。<br>
+      <hr><b>くわしい原因:</b> ${esc(e.message)}</div>`;
+  });
+</script>
+</body>
+</html>
